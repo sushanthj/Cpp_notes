@@ -1,0 +1,265 @@
+I"/H<details open="">
+  <summary class="text-delta">
+    Table of contents
+  </summary>
+<ol id="markdown-toc">
+  <li><a href="#some-distinct-variable-types" id="markdown-toc-some-distinct-variable-types">Some Distinct Variable Types</a></li>
+  <li><a href="#output-formatting" id="markdown-toc-output-formatting">Output formatting</a>    <ol>
+      <li><a href="#using-iomanip" id="markdown-toc-using-iomanip">Using IOMANIP</a></li>
+    </ol>
+  </li>
+  <li><a href="#file-operations" id="markdown-toc-file-operations">File Operations</a>    <ol>
+      <li><a href="#using-the-fstream-class" id="markdown-toc-using-the-fstream-class">Using the fstream class</a></li>
+      <li><a href="#header-files" id="markdown-toc-header-files">Header Files</a>        <ol>
+          <li><a href="#sample-header-file-and-its-use" id="markdown-toc-sample-header-file-and-its-use">Sample header file and it’s use</a></li>
+        </ol>
+      </li>
+    </ol>
+  </li>
+  <li><a href="#strings" id="markdown-toc-strings">Strings</a>    <ol>
+      <li><a href="#string-stream-library" id="markdown-toc-string-stream-library">String Stream Library</a></li>
+      <li><a href="#differnt-ways-to-taking-user-input" id="markdown-toc-differnt-ways-to-taking-user-input">Differnt ways to taking User Input</a>        <ol>
+          <li><a href="#case-study-taking-user-input-and-converting-the-input-string-to-float" id="markdown-toc-case-study-taking-user-input-and-converting-the-input-string-to-float">Case Study: Taking User input and converting the input string to float</a></li>
+          <li><a href="#case-study-directly-taking-int-input" id="markdown-toc-case-study-directly-taking-int-input">Case Study: Directly taking int input</a></li>
+        </ol>
+      </li>
+      <li><a href="#using-scanf" id="markdown-toc-using-scanf">Using scanf</a></li>
+    </ol>
+  </li>
+</ol>
+
+</details>
+
+<h2 id="some-distinct-variable-types">Some Distinct Variable Types</h2>
+
+<ol>
+  <li>
+    <p>Constant variables</p>
+
+    <p>These are immutable types are defined as shown below:</p>
+    <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="k">const</span> <span class="kt">int</span> <span class="n">weightGoal</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Enumerated constants</p>
+
+    <p>We are given the option of creating a variable which can hold only a finite number of values</p>
+
+    <p><strong>the enum class acts as a constructor object with a specific set of values only</strong></p>
+
+    <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+ <span class="p">{</span>
+     <span class="c1">//define MONTHS as having 12 possible values</span>
+     <span class="k">enum</span> <span class="n">MONTHS</span> <span class="p">{</span><span class="n">Jan</span><span class="p">,</span> <span class="n">Feb</span><span class="p">,</span> <span class="n">Mar</span><span class="p">,</span> <span class="n">Apr</span><span class="p">,</span><span class="n">May</span><span class="p">,</span><span class="n">Jun</span><span class="p">,</span><span class="n">Jul</span><span class="p">,</span><span class="n">Aug</span><span class="p">,</span><span class="n">Sep</span><span class="p">,</span><span class="n">Oct</span><span class="p">,</span><span class="n">Nov</span><span class="p">,</span><span class="n">Dec</span><span class="p">};</span>
+        
+     <span class="c1">//define bestMonth as a variable type MONTHS</span>
+     <span class="n">MONTHS</span> <span class="n">bestMonth</span><span class="p">;</span>
+        
+     <span class="c1">//assign bestMonth one of the values of MONTHS</span>
+     <span class="n">bestMonth</span> <span class="o">=</span> <span class="n">Jan</span><span class="p">;</span>
+        
+     <span class="c1">//now we can check the value of bestMonths just </span>
+     <span class="c1">//like any other variable</span>
+     <span class="k">if</span><span class="p">(</span><span class="n">bestMonth</span> <span class="o">==</span> <span class="n">Jan</span><span class="p">)</span>
+     <span class="p">{</span>
+         <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">"I'm not so sure January is the best month</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+     <span class="p">}</span>
+     <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+ <span class="p">}</span>
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<h2 id="output-formatting">Output formatting</h2>
+
+<h3 id="using-iomanip">Using IOMANIP</h3>
+
+<p>It’s a standard library which helps format output text</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;iomanip&gt;
+</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">"Ints"</span><span class="o">&lt;&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">setw</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span><span class="o">&lt;&lt;</span><span class="s">"Floats"</span><span class="o">&lt;&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">setw</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span><span class="o">&lt;&lt;</span><span class="s">"Doubles"</span><span class="o">&lt;&lt;</span> <span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>The std::setw(15) sets the width to 15</p>
+
+<h1 id="file-operations">File Operations</h1>
+
+<h2 id="using-the-fstream-class">Using the fstream class</h2>
+
+<p>Here we will be writing and then reading the contents of a file</p>
+
+<p>The first step is to include the **<fstream>** library</fstream></p>
+
+<p>Basic steps:</p>
+
+<ul>
+  <li>Include the <fstream> library</fstream></li>
+  <li>Create a stream (input, output, both)
+    <ul>
+      <li>ofstream myfile; (for writing to a file)</li>
+      <li>ifstream myfile; (for reading a file)</li>
+      <li>fstream myfile; (for reading and writing a file)</li>
+    </ul>
+  </li>
+  <li>Open the file  myfile.open(“filename”);</li>
+  <li>Write or read the file</li>
+  <li>Close the file myfile.close();</li>
+</ul>
+
+<p>During some file handling ops you may see <strong>ios::app</strong> mentioned during file opening <br />
+This ios is the base class for fstream, ofstream and ifstream (you don’t need to worry about it)</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;iostream&gt;
+#include &lt;fstream&gt;
+#include &lt;string&gt;
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="kt">int</span> <span class="nf">main</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="n">string</span> <span class="n">line</span><span class="p">;</span>
+    
+    <span class="n">fstream</span> <span class="n">fio</span><span class="p">;</span>
+    <span class="c1">//create an output stream to write to the file</span>
+    <span class="c1">//append the new lines to the end of the file</span>
+    <span class="n">fio</span><span class="p">.</span><span class="n">open</span><span class="p">(</span><span class="s">"input.txt"</span><span class="p">,</span> <span class="n">ios</span><span class="o">::</span><span class="n">out</span> <span class="o">|</span> <span class="n">ios</span><span class="o">::</span><span class="n">in</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">fio</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">fio</span><span class="p">.</span><span class="n">seekg</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">ios</span><span class="o">::</span><span class="n">end</span><span class="p">);</span>
+        <span class="n">fio</span> <span class="o">&lt;&lt;</span> <span class="s">"adding a line </span><span class="se">\n</span><span class="s">"</span> <span class="o">&lt;&lt;</span> <span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span> <span class="c1">//the second \n does nothing</span>
+                                            <span class="c1">//as fio takes only 1 string</span>
+        <span class="n">fio</span> <span class="o">&lt;&lt;</span> <span class="s">"adding another line"</span><span class="p">;</span>
+        <span class="n">fio</span><span class="p">.</span><span class="n">seekg</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">ios</span><span class="o">::</span><span class="n">beg</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Unable to open file for writing"</span><span class="p">;</span>
+  
+    <span class="c1">//create an input stream to write to the file</span>
+    <span class="n">fstream</span><span class="p">(</span><span class="s">"input.txt"</span><span class="p">,</span> <span class="n">ios</span><span class="o">::</span><span class="n">in</span> <span class="o">|</span> <span class="n">ios</span><span class="o">::</span><span class="n">out</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">fio</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">while</span> <span class="p">(</span> <span class="n">getline</span> <span class="p">(</span><span class="n">fio</span><span class="p">,</span><span class="n">line</span><span class="p">)</span> <span class="p">)</span> <span class="c1">//each line is getting read(var line is a string)</span>
+        <span class="p">{</span>
+            <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">line</span> <span class="o">&lt;&lt;</span> <span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span> <span class="c1">//this appends a newline to cout</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    
+    <span class="k">else</span> <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Unable to open file for reading"</span><span class="p">;</span>
+    
+    <span class="n">fio</span><span class="p">.</span><span class="n">close</span><span class="p">();</span>
+    
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="header-files">Header Files</h2>
+
+<ul>
+  <li>
+    <p>These have a <strong>.hpp</strong> extension and <strong>can be custom created</strong></p>
+  </li>
+  <li>
+    <p>Generally the header files should contian info on <strong>how</strong> to do a task while the main file
+should contain info on <strong>what</strong> to do the task</p>
+  </li>
+</ul>
+
+<h3 id="sample-header-file-and-its-use">Sample header file and it’s use</h3>
+
+<p>The <em>how to do</em> part of the code is in a header file called trial_header.hpp like:</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="cp">#include &lt;iostream&gt;
+</span>  <span class="cp">#include &lt;string&gt;
+</span>
+  <span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Now we will use that info to figure out <em>what to do</em> in the main program:</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include "trial_header.hpp"
+</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="n">cout</span> <span class="o">&lt;&lt;</span><span class="s">"Hello world I am using header files!"</span><span class="p">;</span>
+  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h1 id="strings">Strings</h1>
+
+<h2 id="string-stream-library">String Stream Library</h2>
+
+<p>Steps for using this library:</p>
+<ul>
+  <li>
+    <p>Include the Stringstream library <br />
+` #include <sstream> `</sstream></p>
+  </li>
+  <li>
+    <p>Use getline and cin as shown above to get string from user <br />
+` std::getline(std::cin, stringVariable) `</p>
+  </li>
+  <li>
+    <p>Convert the string variable to a float variable <br />
+` std::stringstream(stringVariable) » numericVariable `</p>
+  </li>
+</ul>
+
+<h2 id="differnt-ways-to-taking-user-input">Differnt ways to taking User Input</h2>
+
+<h3 id="case-study-taking-user-input-and-converting-the-input-string-to-float">Case Study: Taking User input and converting the input string to float</h3>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;sstream&gt;
+</span> 
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">string</span> <span class="n">length</span><span class="p">;</span>
+    <span class="n">string</span> <span class="n">width</span><span class="p">;</span>
+    <span class="kt">float</span> <span class="n">length_numeric</span><span class="p">;</span>
+    <span class="kt">float</span> <span class="n">width_numeric</span><span class="p">;</span>
+    <span class="kt">double</span> <span class="n">area</span><span class="p">;</span>
+    
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Enter the length of a room </span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+    <span class="n">getline</span><span class="p">(</span><span class="n">cin</span><span class="p">,</span> <span class="n">length</span><span class="p">);</span>
+    <span class="n">stringstream</span><span class="p">(</span><span class="n">length</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="n">length_numeric</span><span class="p">;</span>
+    
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Enter the width of the room </span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+    <span class="n">getline</span><span class="p">(</span><span class="n">cin</span><span class="p">,</span> <span class="n">width</span><span class="p">);</span>
+    <span class="n">stringstream</span><span class="p">(</span><span class="n">width</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="n">width_numeric</span><span class="p">;</span>
+    <span class="n">area</span> <span class="o">=</span> <span class="n">length_numeric</span><span class="o">*</span><span class="n">width_numeric</span><span class="p">;</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Area of the room is"</span> <span class="o">&lt;&lt;</span> <span class="n">area</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="case-study-directly-taking-int-input">Case Study: Directly taking int input</h3>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="kt">int</span> <span class="n">target</span> <span class="o">=</span> <span class="mi">55</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">guess</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+
+  <span class="k">while</span><span class="p">(</span><span class="n">guess</span> <span class="o">!=</span> <span class="n">target</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">"Guess a number between 0 and 100: "</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cin</span><span class="o">&gt;&gt;</span><span class="n">guess</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">guess</span><span class="o">&lt;&lt;</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="using-scanf">Using scanf</h2>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;iostream&gt;
+</span> <span class="cp">#include &lt;stdio.h&gt;
+</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">userInput</span><span class="p">[</span><span class="mi">40</span><span class="p">];</span>
+
+    <span class="c1">//Enter the numbers into an array called userInput</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">40</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">userInput</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+:ET

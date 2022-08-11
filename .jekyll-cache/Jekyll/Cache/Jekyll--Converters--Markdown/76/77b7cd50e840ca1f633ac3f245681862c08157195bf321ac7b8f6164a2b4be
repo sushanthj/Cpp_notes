@@ -1,0 +1,663 @@
+I"��<details open="">
+  <summary class="text-delta">
+    Table of contents
+  </summary>
+<ol id="markdown-toc">
+  <li><a href="#before-you-begin" id="markdown-toc-before-you-begin">Before you Begin</a>    <ol>
+      <li><a href="#convention" id="markdown-toc-convention">Convention</a></li>
+      <li><a href="#functions-in-header-files" id="markdown-toc-functions-in-header-files">Functions in Header Files</a></li>
+    </ol>
+  </li>
+  <li><a href="#variable-scope-in-different-functions" id="markdown-toc-variable-scope-in-different-functions">Variable scope in different functions</a>    <ol>
+      <li><a href="#return-altered-variable-from-function" id="markdown-toc-return-altered-variable-from-function">Return altered variable from function</a></li>
+      <li><a href="#return-variable-by-reference" id="markdown-toc-return-variable-by-reference">Return variable by reference</a>        <ol>
+          <li><a href="#case-study-for-call-by-reference" id="markdown-toc-case-study-for-call-by-reference">Case study for call by reference</a></li>
+        </ol>
+      </li>
+    </ol>
+  </li>
+  <li><a href="#pass-arrays-by-reference-to-functions" id="markdown-toc-pass-arrays-by-reference-to-functions">Pass arrays by reference to functions</a>    <ol>
+      <li><a href="#best-practices-for-passing-variables-to-functions" id="markdown-toc-best-practices-for-passing-variables-to-functions">Best practices for passing variables to functions</a></li>
+    </ol>
+  </li>
+  <li><a href="#classes" id="markdown-toc-classes">Classes</a>    <ol>
+      <li><a href="#typical-class-functionality" id="markdown-toc-typical-class-functionality">Typical Class functionality</a></li>
+      <li><a href="#constructors" id="markdown-toc-constructors">Constructors</a></li>
+      <li><a href="#destructors" id="markdown-toc-destructors">Destructors</a></li>
+      <li><a href="#arrays-of-classes" id="markdown-toc-arrays-of-classes">Arrays of Classes</a></li>
+      <li><a href="#tricky-aspects" id="markdown-toc-tricky-aspects">Tricky Aspects</a></li>
+      <li><a href="#this-pointer" id="markdown-toc-this-pointer">‘this’ Pointer</a>        <ol>
+          <li><a href="#case-1-using-this-to-make-code-more-readable" id="markdown-toc-case-1-using-this-to-make-code-more-readable">Case 1: Using ‘this’ to make code more readable</a></li>
+          <li><a href="#case-2-to-return-a-reference-to-the-class-object-and-chain-calls" id="markdown-toc-case-2-to-return-a-reference-to-the-class-object-and-chain-calls">Case 2: To return a reference to the class object and chain calls</a></li>
+        </ol>
+      </li>
+    </ol>
+  </li>
+</ol>
+
+</details>
+
+<h1 id="before-you-begin">Before you Begin</h1>
+
+<p><img src="images/functions_intro.png" alt="Basics of Functions" /></p>
+
+<h2 id="convention">Convention</h2>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include&lt;iostream&gt;
+</span>
+<span class="kt">void</span> <span class="nf">printMessage</span><span class="p">();</span> <span class="c1">//note, this is placed BEFORE main()</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">printMessage</span><span class="p">();</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">//note, the definition is conventionally placed after main</span>
+<span class="kt">void</span> <span class="nf">printMessage</span><span class="p">()</span> 
+<span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">"HEY! I'm from a function!"</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="functions-in-header-files">Functions in Header Files</h2>
+
+<p>This is simlar to how we create a utils file in python. This helps keep the code cleaner</p>
+
+<h1 id="variable-scope-in-different-functions">Variable scope in different functions</h1>
+
+<h2 id="return-altered-variable-from-function">Return altered variable from function</h2>
+
+<p>See the below example:</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include&lt;iostream&gt;
+</span>
+<span class="kt">int</span> <span class="nf">increment</span><span class="p">(</span><span class="kt">int</span> <span class="n">input</span><span class="p">);</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">34</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">"Before the function call a = "</span><span class="o">&lt;&lt;</span><span class="n">a</span><span class="o">&lt;&lt;</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">increment</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">"After the function call a = "</span><span class="o">&lt;&lt;</span><span class="n">a</span><span class="o">&lt;&lt;</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kt">int</span> <span class="nf">increment</span><span class="p">(</span><span class="kt">int</span> <span class="n">input</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">input</span><span class="o">++</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">"In the function call a = "</span><span class="o">&lt;&lt;</span><span class="n">input</span><span class="o">&lt;&lt;</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">input</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><strong>Note. if we just called the 6th line as <code class="language-plaintext highlighter-rouge">increment(a)</code> then even after function call, the value of <code class="language-plaintext highlighter-rouge">a</code> would remain as 34. This is because the scope of the variable in the function is not the same as that in the main function</strong></p>
+
+<h2 id="return-variable-by-reference">Return variable by reference</h2>
+
+<p>Here we’ll be using pointers to pass only an address
+<strong>Note the comments within the code</strong></p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include&lt;iostream&gt;
+</span>
+<span class="kt">void</span> <span class="nf">increment</span><span class="p">(</span><span class="kt">int</span> <span class="o">&amp;</span><span class="n">input</span><span class="p">);</span> <span class="c1">//Note the addition of '&amp;'</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">34</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">"Before the function call a = "</span><span class="o">&lt;&lt;</span><span class="n">a</span><span class="o">&lt;&lt;</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+    <span class="n">increment</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">"After the function call a = "</span><span class="o">&lt;&lt;</span><span class="n">a</span><span class="o">&lt;&lt;</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kt">void</span> <span class="nf">increment</span><span class="p">(</span><span class="kt">int</span> <span class="o">&amp;</span><span class="n">input</span><span class="p">)</span><span class="c1">//Note the addition of '&amp;'</span>
+<span class="p">{</span>
+    <span class="n">input</span><span class="o">++</span><span class="p">;</span> <span class="c1">//**Note the LACK OF THE addition of '&amp;'**</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">"In the function call a = "</span><span class="o">&lt;&lt;</span><span class="n">input</span><span class="o">&lt;&lt;</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Here by passing the address of the variable, any changes made will reflect in the main function when that same address is referenced again.</p>
+
+<h3 id="case-study-for-call-by-reference">Case study for call by reference</h3>
+
+<p>Understand from the below program how we need to:</p>
+<ul>
+  <li>pass pointers only when data modification to that value is required</li>
+  <li>a hybrid way of calling by reference and by value is both valid</li>
+</ul>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;iostream&gt;
+</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="kt">char</span> <span class="n">operation</span> <span class="o">=</span> <span class="sc">'*'</span><span class="p">;</span>
+    <span class="kt">float</span> <span class="n">input1</span> <span class="o">=</span> <span class="mf">9.8</span><span class="p">;</span>
+    <span class="kt">float</span> <span class="n">input2</span> <span class="o">=</span> <span class="mf">2.3</span><span class="p">;</span>
+    <span class="kt">float</span> <span class="n">result</span><span class="p">;</span>
+    
+    <span class="n">calculate</span><span class="p">(</span><span class="n">input1</span><span class="p">,</span> <span class="n">input2</span><span class="p">,</span> <span class="n">operation</span><span class="p">,</span> <span class="n">result</span><span class="p">);</span>
+    <span class="n">printEquation</span><span class="p">(</span><span class="n">input1</span><span class="p">,</span> <span class="n">input2</span><span class="p">,</span> <span class="n">operation</span><span class="p">,</span> <span class="n">result</span><span class="p">);</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">calculate</span><span class="p">(</span><span class="kt">float</span> <span class="n">in1</span><span class="p">,</span> <span class="kt">float</span> <span class="n">in2</span><span class="p">,</span> <span class="kt">char</span> <span class="n">op</span><span class="p">,</span> <span class="kt">float</span> <span class="o">&amp;</span><span class="n">ans</span><span class="p">);</span>
+<span class="kt">void</span> <span class="nf">printEquation</span><span class="p">(</span><span class="kt">float</span> <span class="n">input1</span><span class="p">,</span><span class="kt">float</span> <span class="n">input2</span><span class="p">,</span> <span class="kt">char</span> <span class="n">operation</span><span class="p">,</span> <span class="kt">float</span> <span class="n">result</span><span class="p">);</span>
+
+<span class="kt">void</span> <span class="nf">calculate</span><span class="p">(</span><span class="kt">float</span> <span class="n">in1</span><span class="p">,</span> <span class="kt">float</span> <span class="n">in2</span><span class="p">,</span> <span class="kt">char</span> <span class="n">op</span><span class="p">,</span> <span class="kt">float</span> <span class="o">&amp;</span><span class="n">ans</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">switch</span><span class="p">(</span><span class="n">op</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">case</span> <span class="sc">'+'</span><span class="p">:</span> <span class="n">ans</span> <span class="o">=</span> <span class="n">in1</span> <span class="o">+</span> <span class="n">in2</span><span class="p">;</span>
+                  <span class="k">break</span><span class="p">;</span>
+        <span class="k">case</span> <span class="sc">'-'</span><span class="p">:</span> <span class="n">ans</span> <span class="o">=</span> <span class="n">in1</span> <span class="o">-</span> <span class="n">in2</span><span class="p">;</span>
+                  <span class="k">break</span><span class="p">;</span>   
+        <span class="k">case</span> <span class="sc">'*'</span><span class="p">:</span> <span class="n">ans</span> <span class="o">=</span> <span class="n">in1</span> <span class="o">*</span> <span class="n">in2</span><span class="p">;</span>
+                  <span class="k">break</span><span class="p">;</span>
+        <span class="k">case</span> <span class="sc">'/'</span><span class="p">:</span> <span class="n">ans</span> <span class="o">=</span> <span class="n">in1</span> <span class="o">/</span> <span class="n">in2</span><span class="p">;</span>
+                  <span class="k">break</span><span class="p">;</span>
+        <span class="nl">default:</span>  <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">"Illegal operation</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="kt">void</span> <span class="nf">printEquation</span><span class="p">(</span><span class="kt">float</span> <span class="n">input1</span><span class="p">,</span><span class="kt">float</span> <span class="n">input2</span><span class="p">,</span> <span class="kt">char</span> <span class="n">operation</span><span class="p">,</span> <span class="kt">float</span> <span class="n">result</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">input1</span><span class="o">&lt;&lt;</span><span class="s">" "</span><span class="o">&lt;&lt;</span><span class="n">operation</span><span class="o">&lt;&lt;</span><span class="s">" "</span><span class="o">&lt;&lt;</span><span class="n">input2</span><span class="o">&lt;&lt;</span><span class="s">" = "</span><span class="o">&lt;&lt;</span><span class="n">result</span><span class="o">&lt;&lt;</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h1 id="pass-arrays-by-reference-to-functions">Pass arrays by reference to functions</h1>
+
+<p>There are three ways of doing this:</p>
+<ul>
+  <li>void functionName(variableType *arrayName)</li>
+  <li>void functionName(variableType arrayName[length of array])</li>
+  <li>void functionName(variableType arrayName[])</li>
+</ul>
+
+<p>But in all the above ways, the array is always passed as a pointer internally</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="cp">#include&lt;iostream&gt;
+#include&lt;iomanip&gt;
+</span>
+<span class="c1">//Pass the array as a pointer</span>
+<span class="kt">void</span> <span class="nf">arrayAsPointer</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="n">array</span><span class="p">,</span> <span class="kt">int</span> <span class="n">size</span><span class="p">);</span>
+<span class="c1">//Pass the array as a sized array</span>
+<span class="kt">void</span> <span class="nf">arraySized</span><span class="p">(</span><span class="kt">int</span> <span class="n">array</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="kt">int</span> <span class="n">size</span><span class="p">);</span>
+<span class="c1">//Pass the array as an unsized array</span>
+<span class="kt">void</span> <span class="nf">arrayUnSized</span><span class="p">(</span><span class="kt">int</span> <span class="n">array</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">size</span><span class="p">);</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">const</span> <span class="kt">int</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">array</span><span class="p">[</span><span class="n">size</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">33</span><span class="p">,</span><span class="mi">66</span><span class="p">,</span><span class="mi">99</span><span class="p">};</span>
+    <span class="c1">//We are passing a pointer or reference to the array</span>
+    <span class="c1">//so we will not know the size of the array</span>
+    <span class="c1">//We have to pass the size to the function as well</span>
+    <span class="n">arrayAsPointer</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">size</span><span class="p">);</span>
+    <span class="n">arraySized</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">size</span><span class="p">);</span>
+    <span class="n">arrayUnSized</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">size</span><span class="p">);</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">arrayAsPointer</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="n">array</span><span class="p">,</span> <span class="kt">int</span> <span class="n">size</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">setw</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">size</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> 
+        <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">array</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">&lt;&lt;</span><span class="s">" "</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">arraySized</span><span class="p">(</span><span class="kt">int</span> <span class="n">array</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="kt">int</span> <span class="n">size</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">setw</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">size</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">array</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">&lt;&lt;</span><span class="s">" "</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>  
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">arrayUnSized</span><span class="p">(</span><span class="kt">int</span> <span class="n">array</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">size</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">setw</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">size</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">array</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">&lt;&lt;</span><span class="s">" "</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>  
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="best-practices-for-passing-variables-to-functions">Best practices for passing variables to functions</h2>
+
+<p>When passing variables that are not going to be modified in the function, define the variable as a ‘const’ so that it cannot be changed by the function.</p>
+
+<p>For example:</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="nf">doubleInput</span><span class="p">(</span><span class="k">const</span> <span class="kt">int</span><span class="p">,</span> <span class="n">input</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">h</span> <span class="o">=</span> <span class="n">input</span> <span class="o">*</span><span class="mi">2</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">h</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h1 id="classes">Classes</h1>
+
+<p>There is a concept called getter/setter in python. In C++ this is called a mutator</p>
+
+<p><strong>Definition</strong>: Mutators are functions that access/modify data from an external class</p>
+
+<p><img src="images/getter_python.png" alt="python_getter_setter" /></p>
+
+<p><img src="images/getter_setter_cpp.png" alt="c++_setter" /></p>
+
+<p><img src="images/c++_getter.png" alt="c++_getter" /></p>
+
+<h2 id="typical-class-functionality">Typical Class functionality</h2>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include&lt;iostream&gt;
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+
+<span class="k">class</span> <span class="nc">Student</span>
+<span class="p">{</span>
+        <span class="n">string</span> <span class="n">name</span><span class="p">;</span>
+        <span class="kt">int</span> <span class="n">id</span><span class="p">;</span>
+        <span class="kt">int</span> <span class="n">gradDate</span><span class="p">;</span>
+
+    <span class="nl">public:</span>
+        <span class="c1">// setter methods which don't return anything</span>
+        <span class="c1">// therefore are void types</span>
+        <span class="kt">void</span> <span class="n">setName</span><span class="p">(</span><span class="n">string</span> <span class="n">nameIn</span><span class="p">);</span>
+        <span class="kt">void</span> <span class="n">setId</span><span class="p">(</span><span class="kt">int</span> <span class="n">idIn</span><span class="p">);</span>
+        <span class="kt">void</span> <span class="n">setGradDate</span><span class="p">(</span><span class="kt">int</span> <span class="n">dateIn</span><span class="p">);</span>
+        <span class="c1">// getter methods which return a specific datatype</span>
+        <span class="c1">// Note. they also don't need any inp params</span>
+        <span class="n">string</span> <span class="n">getName</span><span class="p">();</span>
+        <span class="kt">int</span> <span class="n">getId</span><span class="p">();</span>
+        <span class="kt">int</span> <span class="n">getGradDate</span><span class="p">();</span>
+        <span class="c1">// print also only outputs from class directly</span>
+        <span class="c1">// therefore void</span>
+        <span class="kt">void</span> <span class="n">print</span><span class="p">();</span>
+<span class="p">};</span>
+
+<span class="kt">void</span> <span class="n">Student</span><span class="o">::</span><span class="n">setName</span><span class="p">(</span><span class="n">string</span> <span class="n">nameIn</span><span class="p">)</span>
+<span class="p">{</span>
+     <span class="n">name</span> <span class="o">=</span> <span class="n">nameIn</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="n">Student</span><span class="o">::</span><span class="n">setId</span><span class="p">(</span><span class="kt">int</span> <span class="n">idIn</span><span class="p">)</span>
+<span class="p">{</span>
+     <span class="n">id</span> <span class="o">=</span> <span class="n">idIn</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="n">Student</span><span class="o">::</span><span class="n">setGradDate</span><span class="p">(</span><span class="kt">int</span> <span class="n">gradDateIn</span><span class="p">)</span>
+<span class="p">{</span>
+     <span class="n">gradDate</span> <span class="o">=</span> <span class="n">gradDateIn</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="n">Student</span><span class="o">::</span><span class="n">print</span><span class="p">()</span>
+<span class="p">{</span>
+     <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">name</span><span class="o">&lt;&lt;</span><span class="s">" "</span><span class="o">&lt;&lt;</span><span class="n">id</span><span class="o">&lt;&lt;</span><span class="s">" "</span><span class="o">&lt;&lt;</span><span class="n">gradDate</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">string</span> <span class="n">Student</span><span class="o">::</span><span class="n">getName</span><span class="p">()</span>
+<span class="p">{</span>
+     <span class="k">return</span> <span class="n">name</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="n">Student</span><span class="o">::</span><span class="n">getId</span><span class="p">()</span>
+<span class="p">{</span>
+     <span class="k">return</span> <span class="n">id</span><span class="p">;</span> 
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="n">Student</span><span class="o">::</span><span class="n">getGradDate</span><span class="p">()</span>
+<span class="p">{</span>
+     <span class="k">return</span> <span class="n">gradDate</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">integer1</span><span class="p">;</span> 
+    <span class="kt">float</span> <span class="n">float1</span><span class="p">;</span>
+    <span class="n">Student</span> <span class="n">student1</span><span class="p">;</span> 
+    
+    <span class="n">integer1</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span> <span class="c1">//assign a value to integer1</span>
+    <span class="n">float1</span> <span class="o">=</span> <span class="mf">4.333</span><span class="p">;</span> <span class="c1">//assign a value to float1</span>
+
+    <span class="n">student1</span><span class="p">.</span><span class="n">setName</span><span class="p">(</span><span class="s">"Catherine Gamboa"</span><span class="p">);</span> <span class="c1">//assign a value to the student name</span>
+    <span class="n">student1</span><span class="p">.</span><span class="n">setId</span><span class="p">(</span><span class="mi">54345</span><span class="p">);</span> <span class="c1">//assign a value to the student id number</span>
+    <span class="n">student1</span><span class="p">.</span><span class="n">setGradDate</span><span class="p">(</span><span class="mi">2017</span><span class="p">);</span> <span class="c1">//assign a value to the student grad date</span>
+    
+    <span class="c1">//Let's print the values of our variables</span>
+    <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">"integer1 = "</span><span class="o">&lt;&lt;</span><span class="n">integer1</span><span class="o">&lt;&lt;</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+    <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">"float1 = "</span><span class="o">&lt;&lt;</span><span class="n">float1</span><span class="o">&lt;&lt;</span><span class="s">"</span><span class="se">\n\n</span><span class="s">"</span><span class="p">;</span>
+    
+    <span class="c1">//There are two ways we can print the values of our class:</span>
+    <span class="c1">//The first is to call the print function we created.</span>
+    <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">"Using the Student::print function</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+    <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">"Student1 = "</span><span class="p">;</span>
+    <span class="n">student1</span><span class="p">.</span><span class="n">print</span><span class="p">();</span>
+    <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">"</span><span class="se">\n\n</span><span class="s">"</span><span class="p">;</span>
+    
+    <span class="c1">//The second is to access each member of the class using the get functions</span>
+    <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">"Using the student access functions</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+    <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">"Student1 name = "</span><span class="o">&lt;&lt;</span><span class="n">student1</span><span class="p">.</span><span class="n">getName</span><span class="p">()</span><span class="o">&lt;&lt;</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+    <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">"Student1 ID = "</span><span class="o">&lt;&lt;</span><span class="n">student1</span><span class="p">.</span><span class="n">getId</span><span class="p">()</span><span class="o">&lt;&lt;</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+    <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">"Student1 Grad Date = "</span><span class="o">&lt;&lt;</span><span class="n">student1</span><span class="p">.</span><span class="n">getGradDate</span><span class="p">()</span><span class="o">&lt;&lt;</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+    
+    
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span> 
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="constructors">Constructors</h2>
+
+<p>A constructor is special function that is executed whenever we create a new instance of the class. It is used to set initial values of data members of the class.</p>
+
+<p><strong>Constructors also do not return any value</strong></p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/*Goal: learn to use constructors*/</span>
+
+
+<span class="cp">#include&lt;iostream&gt;
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="c1">//The cats class that we used earlier in the lesson. </span>
+<span class="k">class</span> <span class="nc">Cats</span>
+<span class="p">{</span>
+    <span class="n">string</span> <span class="n">name</span><span class="p">;</span>
+    <span class="n">string</span> <span class="n">breed</span><span class="p">;</span> 
+    <span class="kt">int</span> <span class="n">age</span><span class="p">;</span>
+<span class="nl">public:</span>
+    <span class="n">Cats</span><span class="p">();</span> <span class="c1">//declaring the constructor</span>
+    <span class="kt">void</span> <span class="n">setName</span><span class="p">(</span><span class="n">string</span> <span class="n">nameIn</span><span class="p">);</span>
+    <span class="kt">void</span> <span class="n">setBreed</span><span class="p">(</span><span class="n">string</span> <span class="n">breedIn</span><span class="p">);</span>
+    <span class="kt">void</span> <span class="n">setAge</span><span class="p">(</span><span class="kt">int</span> <span class="n">ageIn</span><span class="p">);</span>
+    <span class="n">string</span> <span class="n">getName</span><span class="p">();</span>
+    <span class="n">string</span> <span class="n">getBreed</span><span class="p">();</span>
+    <span class="kt">int</span> <span class="n">getAge</span><span class="p">();</span>
+    <span class="kt">void</span> <span class="n">printInfo</span><span class="p">();</span>
+<span class="p">};</span>
+<span class="c1">//defining the constructor</span>
+<span class="n">Cats</span><span class="o">::</span><span class="n">Cats</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">"Assigning inital values in the constructor</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s">"Unknown"</span><span class="p">;</span>
+    <span class="n">breed</span> <span class="o">=</span> <span class="s">"Unknown"</span><span class="p">;</span> <span class="c1">//the initial value of the breed</span>
+    <span class="n">age</span> <span class="o">=</span> <span class="mi">99</span><span class="p">;</span> <span class="c1">//the initial value of the age</span>
+<span class="p">}</span>
+<span class="kt">void</span> <span class="n">Cats</span><span class="o">::</span><span class="n">setName</span><span class="p">(</span><span class="n">string</span> <span class="n">nameIn</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">nameIn</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="n">Cats</span><span class="o">::</span><span class="n">setBreed</span><span class="p">(</span><span class="n">string</span> <span class="n">breedIn</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">breed</span> <span class="o">=</span> <span class="n">breedIn</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="n">Cats</span><span class="o">::</span><span class="n">setAge</span><span class="p">(</span><span class="kt">int</span> <span class="n">ageIn</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">age</span> <span class="o">=</span> <span class="n">ageIn</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="n">string</span> <span class="n">Cats</span><span class="o">::</span><span class="n">getName</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="n">name</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="n">string</span> <span class="n">Cats</span><span class="o">::</span><span class="n">getBreed</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="n">breed</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kt">int</span> <span class="n">Cats</span><span class="o">::</span><span class="n">getAge</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="n">age</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kt">void</span> <span class="n">Cats</span><span class="o">::</span><span class="n">printInfo</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">name</span><span class="o">&lt;&lt;</span><span class="s">" "</span><span class="o">&lt;&lt;</span><span class="n">breed</span><span class="o">&lt;&lt;</span><span class="s">" "</span><span class="o">&lt;&lt;</span><span class="n">age</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">//+++++++</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">Cats</span> <span class="n">cat1</span><span class="p">;</span>
+    <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">"Cat1 information: "</span><span class="p">;</span>
+    <span class="n">cat1</span><span class="p">.</span><span class="n">printInfo</span><span class="p">();</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><strong>Note the syntax of a constructor is simple and this is all you need to keep in mind</strong></p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ClassName</span><span class="o">::</span><span class="n">ClassName</span><span class="p">()</span>
+<span class="p">{</span>
+     <span class="n">dataMemberName1</span> <span class="o">=</span> <span class="n">value</span><span class="p">;</span>
+     <span class="n">dataMemberName2</span> <span class="o">=</span> <span class="n">value</span><span class="p">;</span>
+     <span class="p">...</span>
+<span class="p">}</span>
+
+<span class="c1">// the same is in the Cats class as</span>
+<span class="n">Cats</span><span class="o">::</span><span class="n">Cats</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">"Assigning inital values in the constructor</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s">"Unknown"</span><span class="p">;</span>
+    <span class="n">breed</span> <span class="o">=</span> <span class="s">"Unknown"</span><span class="p">;</span> <span class="c1">//the initial value of the breed</span>
+    <span class="n">age</span> <span class="o">=</span> <span class="mi">99</span><span class="p">;</span> <span class="c1">//the initial value of the age</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="destructors">Destructors</h2>
+<p>Destructors are special class functions that are called whenever an object goes out of scope. Just like a constructor, a destructor is called automatically.</p>
+
+<p>Destructors cannot:</p>
+<ul>
+  <li>return a value</li>
+  <li>accept parameters</li>
+</ul>
+
+<p><strong>Destructors must have the same name as the class but the destructor is identified with a tilda (~) symbol</strong></p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Dog</span>
+<span class="p">{</span>
+    <span class="nl">private:</span>
+        <span class="kt">int</span> <span class="n">license</span><span class="p">;</span>
+    <span class="nl">public:</span>
+        <span class="n">Dog</span><span class="p">();</span>
+        <span class="n">Dog</span><span class="p">(</span><span class="kt">int</span> <span class="n">licenseIn</span><span class="p">);</span>
+        <span class="kt">void</span> <span class="n">setLicense</span><span class="p">(</span><span class="kt">int</span> <span class="n">licenseIn</span><span class="p">);</span>
+        <span class="kt">int</span> <span class="n">getLicense</span><span class="p">();</span>
+        <span class="o">~</span><span class="n">Dog</span><span class="p">();</span>
+<span class="p">};</span>
+
+<span class="n">Dog</span><span class="o">::</span><span class="n">Dog</span><span class="p">()</span>
+<span class="p">{</span>
+   <span class="n">license</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">Dog</span><span class="o">::~</span><span class="n">Dog</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">"</span><span class="se">\n</span><span class="s">Deleting the dog"</span><span class="p">;</span>
+    <span class="c1">// to actually delete the object in memory</span>
+    <span class="c1">// lookup the memory allocation page</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="arrays-of-classes">Arrays of Classes</h2>
+
+<p>See the below example of how to have each element of an array be a class</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/*main.hpp*/</span>
+<span class="cm">/*main.hpp*/</span>
+<span class="cm">/*header file for main.cpp*/</span>
+<span class="cp">#include&lt;iostream&gt;
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">Student</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">grade</span><span class="p">[</span><span class="mi">5</span><span class="p">];</span>
+    <span class="kt">int</span> <span class="n">id</span><span class="p">;</span>
+<span class="nl">public:</span>
+    <span class="n">Student</span><span class="p">();</span>
+    <span class="kt">void</span> <span class="n">setId</span><span class="p">(</span><span class="kt">int</span> <span class="n">idin</span><span class="p">);</span>
+    <span class="kt">void</span> <span class="n">setGrade</span><span class="p">(</span><span class="kt">int</span> <span class="n">index</span><span class="p">,</span> <span class="kt">int</span> <span class="n">gradeIn</span><span class="p">);</span>
+    <span class="kt">int</span> <span class="n">getId</span><span class="p">();</span>
+    <span class="kt">int</span> <span class="n">getGrade</span><span class="p">(</span><span class="kt">int</span> <span class="n">index</span><span class="p">);</span>
+    <span class="kt">int</span> <span class="n">getAvg</span><span class="p">();</span>
+    <span class="kt">void</span> <span class="n">printInfo</span><span class="p">();</span>
+<span class="p">};</span>
+
+<span class="n">Student</span><span class="o">::</span><span class="n">Student</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="mi">5</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">grade</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">id</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="n">Student</span><span class="o">::</span><span class="n">setId</span><span class="p">(</span><span class="kt">int</span> <span class="n">idin</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">id</span> <span class="o">=</span> <span class="n">idin</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kt">void</span> <span class="n">Student</span><span class="o">::</span><span class="n">setGrade</span><span class="p">(</span><span class="kt">int</span> <span class="n">index</span><span class="p">,</span> <span class="kt">int</span> <span class="n">gradeIn</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">grade</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">gradeIn</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kt">int</span>  <span class="n">Student</span><span class="o">::</span><span class="n">getId</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="n">id</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kt">int</span>  <span class="n">Student</span><span class="o">::</span><span class="n">getGrade</span><span class="p">(</span><span class="kt">int</span> <span class="n">index</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="n">grade</span><span class="p">[</span><span class="n">index</span><span class="p">];</span>
+<span class="p">}</span>
+<span class="kt">int</span>  <span class="n">Student</span><span class="o">::</span><span class="n">getAvg</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="mi">5</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+        <span class="n">sum</span> <span class="o">=</span> <span class="n">sum</span> <span class="o">+</span> <span class="n">grade</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+    <span class="k">return</span> <span class="n">sum</span><span class="o">/</span><span class="mf">5.0</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kt">void</span> <span class="n">Student</span><span class="o">::</span><span class="n">printInfo</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">id</span><span class="o">&lt;&lt;</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="mi">5</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+        <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">grade</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">&lt;&lt;</span><span class="s">" "</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">const</span> <span class="kt">int</span> <span class="n">SIZE</span><span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+    <span class="c1">//Create a course of students</span>
+    <span class="n">Student</span> <span class="n">course1</span><span class="p">[</span><span class="n">SIZE</span><span class="p">];</span>
+    <span class="c1">//Each array element is a Student type</span>
+    <span class="c1">//so it has access to the members of Student</span>
+    <span class="n">course1</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">setId</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span>
+    <span class="n">course1</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">setId</span><span class="p">(</span><span class="mi">1111</span><span class="p">);</span>
+    <span class="n">course1</span><span class="p">[</span><span class="mi">2</span><span class="p">].</span><span class="n">setId</span><span class="p">(</span><span class="mi">2222</span><span class="p">);</span>
+
+    <span class="n">course1</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">setGrade</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">83</span><span class="p">);</span>
+    <span class="n">course1</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">setGrade</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">95</span><span class="p">);</span>
+    <span class="n">course1</span><span class="p">[</span><span class="mi">2</span><span class="p">].</span><span class="n">setGrade</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">72</span><span class="p">);</span>
+
+    <span class="n">course1</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">setGrade</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">87</span><span class="p">);</span>
+    <span class="n">course1</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">setGrade</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">52</span><span class="p">);</span>
+    <span class="n">course1</span><span class="p">[</span><span class="mi">2</span><span class="p">].</span><span class="n">setGrade</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">70</span><span class="p">);</span>
+
+    <span class="n">course1</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">setGrade</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">90</span><span class="p">);</span>
+    <span class="n">course1</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">setGrade</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">85</span><span class="p">);</span>
+    <span class="n">course1</span><span class="p">[</span><span class="mi">2</span><span class="p">].</span><span class="n">setGrade</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">82</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p><strong>Main takeaway is that the declaration for the array of class objects is:</strong></p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">const</span> <span class="kt">int</span> <span class="n">SIZE</span><span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+<span class="n">Student</span> <span class="n">course1</span><span class="p">[</span><span class="n">SIZE</span><span class="p">];</span>
+</code></pre></div></div>
+
+<h2 id="tricky-aspects">Tricky Aspects</h2>
+
+<p>Now suppose we have a class not visible to us and it’s called Dog</p>
+
+<p>However, we use it to create an instance of the class in an array. <strong>This array now becomes of the datatype Dog. Similar to how we say <code class="language-plaintext highlighter-rouge">int courses[3]</code></strong></p>
+
+<p>See how this plays out below:</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include&lt;iostream&gt;
+#include "Dog.cpp"
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">const</span> <span class="kt">int</span> <span class="n">SIZE</span><span class="o">=</span><span class="mi">3</span><span class="p">;</span>
+    <span class="n">Dog</span> <span class="n">roster</span><span class="p">[</span><span class="n">SIZE</span><span class="p">];</span>
+
+    <span class="n">roster</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">setName</span><span class="p">(</span><span class="s">"Blue"</span><span class="p">);</span>
+    <span class="n">roster</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">setName</span><span class="p">(</span><span class="s">"King"</span><span class="p">);</span>
+    <span class="n">roster</span><span class="p">[</span><span class="mi">2</span><span class="p">].</span><span class="n">setName</span><span class="p">(</span><span class="s">"Spot"</span><span class="p">);</span>
+
+    <span class="n">printRoster</span><span class="p">(</span><span class="n">roster</span><span class="p">,</span><span class="n">SIZE</span><span class="p">);</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// See here that we declare the roster as of type Dog instead of say: int roster[]</span>
+<span class="kt">void</span> <span class="nf">printRoster</span><span class="p">(</span><span class="n">Dog</span> <span class="n">roster</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">size</span><span class="p">);</span>
+
+<span class="kt">void</span> <span class="nf">printRoster</span><span class="p">(</span><span class="n">Dog</span> <span class="n">roster</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">size</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">size</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">roster</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">printInfo</span><span class="p">();</span>
+        <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">"</span><span class="se">\n\n</span><span class="s">"</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="this-pointer">‘this’ Pointer</h2>
+
+<p>Check out the following link for this pointers <img src="https://www.geeksforgeeks.org/this-pointer-in-c/" alt="THIS_POINTER" /></p>
+
+<p>Check out this video for static class varible and understand the difference between memeber functions/variables of a class and static variables of a class. <img src="https://www.youtube.com/watch?v=u8jw0LsQFFg&amp;ab_channel=CppNuts" alt="STATIC_VARS" /></p>
+
+<h3 id="case-1-using-this-to-make-code-more-readable">Case 1: Using ‘this’ to make code more readable</h3>
+
+<p>suppose we have the following code:</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Point</span>
+<span class="p">{</span>
+        <span class="kt">int</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">;</span>
+    <span class="nl">public:</span>
+        <span class="n">Point</span><span class="p">(</span><span class="kt">int</span> <span class="n">x1</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y1</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">x1</span><span class="p">;</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="n">y1</span><span class="p">;</span>
+        <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">Point</span> <span class="n">p1</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Now in the constructor there are two types of variables x,y and x1,y1 which feels unncessary and may confuse the code reviewer. To prevent this we can use <code class="language-plaintext highlighter-rouge">this</code> pointer</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Point</span>
+<span class="p">{</span>
+        <span class="kt">int</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">;</span>
+    <span class="nl">public:</span>
+        <span class="n">Point</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">this</span><span class="o">-&gt;</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span>
+            <span class="k">this</span><span class="o">-&gt;</span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">;</span>
+        <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">Point</span> <span class="n">p1</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="case-2-to-return-a-reference-to-the-class-object-and-chain-calls">Case 2: To return a reference to the class object and chain calls</h3>
+
+<ul>
+  <li>
+    <p>As we learnt, <code class="language-plaintext highlighter-rouge">this</code> is a reference to each class object applied to non-static variables/member funcs (This is because static vars are common to each class btw, obviously explained in the video above pls watch)</p>
+  </li>
+  <li>Also note from the pointers chapter, if <code class="language-plaintext highlighter-rouge">float x = 3;</code>, then just <code class="language-plaintext highlighter-rouge">x;</code> would call the variable value</li>
+  <li>But <code class="language-plaintext highlighter-rouge">&amp;x</code> would return the address of x. Therefore <code class="language-plaintext highlighter-rouge">&amp;</code> is the return type modifier. We see this used below</li>
+</ul>
+
+<p><img src="images/this_pointer_use.png" alt="chaining_calls" /></p>
+:ET

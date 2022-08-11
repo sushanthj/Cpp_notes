@@ -1,0 +1,582 @@
+
+
+<!DOCTYPE html>
+
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+
+  
+
+  <link rel="shortcut icon" type="image/png" href="favicon.png">
+
+  <link rel="stylesheet" href="/assets/css/just-the-docs-default.css">
+
+  
+
+  
+    <script type="text/javascript" src="/assets/js/vendor/lunr.min.js"></script>
+  
+  <script type="text/javascript" src="/assets/js/just-the-docs.js"></script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Basics | C++ Notes</title>
+<meta name="generator" content="Jekyll v4.2.0" />
+<meta property="og:title" content="Basics" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Python Notes" />
+<meta property="og:description" content="Python Notes" />
+<link rel="canonical" href="/Basics" />
+<meta property="og:url" content="/Basics" />
+<meta property="og:site_name" content="C++ Notes" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Basics" />
+<script type="application/ld+json">
+{"@type":"WebPage","url":"/Basics","headline":"Basics","description":"Python Notes","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+  
+
+</head>
+
+<body>
+  <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+    <symbol id="svg-link" viewBox="0 0 24 24">
+      <title>Link</title>
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link">
+        <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+      </svg>
+    </symbol>
+    <symbol id="svg-search" viewBox="0 0 24 24">
+      <title>Search</title>
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
+        <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+      </svg>
+    </symbol>
+    <symbol id="svg-menu" viewBox="0 0 24 24">
+      <title>Menu</title>
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu">
+        <line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>
+      </svg>
+    </symbol>
+    <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+      <title>Expand</title>
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+        <polyline points="9 18 15 12 9 6"></polyline>
+      </svg>
+    </symbol>
+    <symbol id="svg-doc" viewBox="0 0 24 24">
+      <title>Document</title>
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file">
+        <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline>
+      </svg>
+    </symbol>
+  </svg>
+
+  <div class="side-bar">
+    <div class="site-header">
+      <a href="/" class="site-title lh-tight">
+  C++ Notes
+
+</a>
+      <a href="#" id="menu-button" class="site-button">
+        <svg viewBox="0 0 24 24" class="icon"><use xlink:href="#svg-menu"></use></svg>
+      </a>
+    </div>
+    <nav role="navigation" aria-label="Main" id="site-nav" class="site-nav">
+      
+        <ul class="nav-list"><li class="nav-list-item"><a href="/" class="nav-list-link">Home</a></li><li class="nav-list-item"><a href="/intro/" class="nav-list-link">Intro</a></li><li class="nav-list-item active"><a href="/Basics" class="nav-list-link active">Basics</a></li><li class="nav-list-item"><a href="/File_ops" class="nav-list-link">Files, User IO and Variables</a></li><li class="nav-list-item"><a href="/Control_Flow" class="nav-list-link">Control Flow</a></li><li class="nav-list-item"><a href="/Pointers_and_Arrays" class="nav-list-link">Pointers & Arrays</a></li><li class="nav-list-item"><a href="/Functions_and_Classes" class="nav-list-link">Functions and Classes</a></li><li class="nav-list-item"><a href="/General_troubleshooting" class="nav-list-link">General Troubleshooting</a></li><li class="nav-list-item"><a href="/git_concepts" class="nav-list-link">Git Concepts</a></li></ul>
+
+      
+    </nav>
+    <footer class="site-footer">
+      This site uses <a href="https://github.com/pmarsceill/just-the-docs">Just the Docs</a>, a documentation theme for Jekyll.
+    </footer>
+  </div>
+  <div class="main" id="top">
+    <div id="main-header" class="main-header">
+      
+        <div class="search">
+          <div class="search-input-wrap">
+            <input type="text" id="search-input" class="search-input" tabindex="0" placeholder="Search C++ Notes" aria-label="Search C++ Notes" autocomplete="off">
+            <label for="search-input" class="search-label"><svg viewBox="0 0 24 24" class="search-icon"><use xlink:href="#svg-search"></use></svg></label>
+          </div>
+          <div id="search-results" class="search-results"></div>
+        </div>
+      
+      
+      
+        <nav aria-label="Auxiliary" class="aux-nav">
+          <ul class="aux-nav-list">
+            
+              <li class="aux-nav-list-item">
+                <a href="//github.com/sushanthj" class="site-button"
+                  
+                >
+                  Sushanth's GitHub
+                </a>
+              </li>
+            
+          </ul>
+        </nav>
+      
+    </div>
+    <div id="main-content-wrap" class="main-content-wrap">
+      
+        
+      
+      <div id="main-content" class="main-content" role="main">
+        
+          <details open="">
+  <summary class="text-delta">
+    Table of contents
+  </summary>
+<ol id="markdown-toc">
+  <li><a href="#basics-to-begin" id="markdown-toc-basics-to-begin">Basics to Begin</a></li>
+  <li><a href="#objects-and-variables" id="markdown-toc-objects-and-variables">Objects and Variables</a>    <ol>
+      <li><a href="#best-practice-for-variables" id="markdown-toc-best-practice-for-variables">Best practice for variables</a></li>
+    </ol>
+  </li>
+  <li><a href="#intro-to-iostream" id="markdown-toc-intro-to-iostream">Intro to iostream</a></li>
+  <li><a href="#memory-allocations-and-sizes" id="markdown-toc-memory-allocations-and-sizes">Memory Allocations and Sizes</a>    <ol>
+      <li><a href="#uninitialized-variables" id="markdown-toc-uninitialized-variables">Uninitialized Variables</a></li>
+      <li><a href="#variable-naming-conventions" id="markdown-toc-variable-naming-conventions">Variable naming conventions</a></li>
+      <li><a href="#formatting-best-practices" id="markdown-toc-formatting-best-practices">Formatting Best Practices</a></li>
+      <li><a href="#commenting" id="markdown-toc-commenting">Commenting</a></li>
+    </ol>
+  </li>
+  <li><a href="#arithmetic-operations" id="markdown-toc-arithmetic-operations">Arithmetic Operations</a>    <ol>
+      <li><a href="#cmath-library" id="markdown-toc-cmath-library">cmath library</a></li>
+      <li><a href="#weird-implicit-conversions" id="markdown-toc-weird-implicit-conversions">Weird Implicit conversions</a></li>
+      <li><a href="#prefix-and-postfix-operators" id="markdown-toc-prefix-and-postfix-operators">Prefix and Postfix operators</a></li>
+    </ol>
+  </li>
+</ol>
+
+</details>
+      <h2 id="basics-to-begin">
+        
+        
+          <a href="#basics-to-begin" class="anchor-heading" aria-labelledby="basics-to-begin"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Basics to Begin
+        
+        
+      </h2>
+    
+
+<ul>
+  <li>To only compile files on the command line:</li>
+</ul>
+
+<p><i>g++ -o HelloWorld hello.cpp (where hello.cpp was the C++ code you wrote)</i></p>
+      <h2 id="objects-and-variables">
+        
+        
+          <a href="#objects-and-variables" class="anchor-heading" aria-labelledby="objects-and-variables"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Objects and Variables
+        
+        
+      </h2>
+    
+
+<p>In C++, direct memory access is not allowed. Instead, we access memory indirectly through an object. An object is a region of storage (usually memory) that has a value and other associated properties.</p>
+
+<p>The key point here is that rather than say go get the value stored in mailbox number 7532, we can say, go get the value stored by this object. This means we can focus on using objects to store and retrieve values, and not have to worry about where in memory they’re actually being placed.</p>
+      <h3 id="best-practice-for-variables">
+        
+        
+          <a href="#best-practice-for-variables" class="anchor-heading" aria-labelledby="best-practice-for-variables"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Best practice for variables
+        
+        
+      </h3>
+    
+
+<ol>
+  <li>Declaration
+    <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">double</span> <span class="n">b</span><span class="p">;</span> <span class="c1">// wrong (compiler error)</span>
+
+ <span class="kt">int</span> <span class="n">a</span><span class="p">;</span> <span class="kt">double</span> <span class="n">b</span><span class="p">;</span> <span class="c1">// correct (but not recommended)</span>
+
+ <span class="c1">// correct and recommended (easier to read)</span>
+ <span class="kt">int</span> <span class="n">a</span><span class="p">;</span>
+ <span class="kt">double</span> <span class="n">b</span><span class="p">;</span>
+</code></pre></div>    </div>
+
+    <p>Although the language allows you to do so, avoid defining multiple variables in a single statement (even if they are the same type). Instead, define each variable in a separate statement (and then use a single-line comment to document what it is used for).</p>
+  </li>
+  <li>
+    <p>Initializations</p>
+
+    <p>C++ offers a form of initialization called brace initialization. <strong>Favor initialization using braces whenever possible.</strong></p>
+
+    <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="kt">int</span> <span class="n">width</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span> <span class="c1">// copy initialization of value 5 into variable width</span>
+ <span class="kt">int</span> <span class="n">width</span> <span class="p">{</span> <span class="mi">5</span> <span class="p">};</span> <span class="c1">// direct brace initialization of value 5 into variable width (preferred)</span>
+
+ <span class="c1">// you could also not initialize in cases where value is going to change immediately</span>
+ <span class="kt">int</span> <span class="n">x</span> <span class="p">{};</span> <span class="c1">// value initialization</span>
+ <span class="n">std</span><span class="o">::</span><span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">x</span><span class="p">;</span> <span class="c1">// we're immediately replacing that value</span>
+
+ <span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span> <span class="c1">// wrong (a is not initialized!)</span>
+ <span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span> <span class="c1">// corr</span>
+</code></pre></div>    </div>
+  </li>
+</ol>
+      <h1 id="intro-to-iostream">
+        
+        
+          <a href="#intro-to-iostream" class="anchor-heading" aria-labelledby="intro-to-iostream"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Intro to iostream
+        
+        
+      </h1>
+    
+
+<p><img src="/images/cpp_headers.png" alt="General format of headers" />
+Note how the iostream is inside quotes here. That says that iostream is present in the present working directory and the compiler has to look there</p>
+
+<ol>
+  <li>
+    <p>Concatenation in std::cout</p>
+
+    <p>To print more than one thing on the same line, the insertion operator («) can be used multiple times in a single statement to concatenate</p>
+    <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="cp">#include &lt;iostream&gt; // for std::cout
+</span>
+ <span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+ <span class="p">{</span>
+     <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Hello"</span> <span class="o">&lt;&lt;</span> <span class="s">" world!"</span><span class="p">;</span>
+     <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+ <span class="p">}</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>\n equivalent here is endl</p>
+
+    <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="cp">#include &lt;iostream&gt; // for std::cout and std::endl
+</span>
+ <span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+ <span class="p">{</span>
+     <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Hi!"</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span> <span class="c1">// std::endl will cause the cursor to move to the next line of the console</span>
+     <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"My name is Alex."</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+
+     <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+ <span class="p">}</span>
+</code></pre></div>    </div>
+
+    <p>Or you could also used \n itself :P (<strong>this is also more preferred</strong>)</p>
+    <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="cp">#include &lt;iostream&gt; // for std::cout
+</span>
+ <span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+ <span class="p">{</span>
+     <span class="kt">int</span> <span class="n">x</span><span class="p">{</span> <span class="mi">5</span> <span class="p">};</span>
+     <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"x is equal to: "</span> <span class="o">&lt;&lt;</span> <span class="n">x</span> <span class="o">&lt;&lt;</span> <span class="sc">'\n'</span><span class="p">;</span> <span class="c1">// Using '\n' standalone</span>
+     <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"And that's all, folks!</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span> <span class="c1">// Using '\n' embedded into a double-quoted piece of text (note: no single quotes when used this way)</span>
+     <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+ <span class="p">}</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Taking user input using std::cin</p>
+
+    <p>Here note the direction of the <em>«</em></p>
+    <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+ <span class="p">{</span>
+     <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Enter a number: "</span><span class="p">;</span> <span class="c1">// ask user for a number</span>
+
+     <span class="kt">int</span> <span class="n">x</span><span class="p">{</span> <span class="p">};</span> <span class="c1">// define variable x to hold user input (and zero-initialize it)</span>
+     <span class="n">std</span><span class="o">::</span><span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">x</span><span class="p">;</span> <span class="c1">// get number from keyboard and store it in variable x</span>
+
+     <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"You entered "</span> <span class="o">&lt;&lt;</span> <span class="n">x</span> <span class="o">&lt;&lt;</span> <span class="sc">'\n'</span><span class="p">;</span>
+     <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+ <span class="p">}</span>
+</code></pre></div>    </div>
+
+    <p>Just like it is possible to output more than one bit of text in a single line, it is also possible to input more than one value on a single line</p>
+
+    <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="cp">#include &lt;iostream&gt;  // for std::cout and std::cin
+</span>
+ <span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+ <span class="p">{</span>
+     <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Enter two numbers separated by a space: "</span><span class="p">;</span>
+
+     <span class="kt">int</span> <span class="n">x</span><span class="p">{</span> <span class="p">};</span> 
+     <span class="kt">int</span> <span class="n">y</span><span class="p">{</span> <span class="p">};</span> 
+     <span class="n">std</span><span class="o">::</span><span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">x</span> <span class="o">&gt;&gt;</span> <span class="n">y</span><span class="p">;</span> <span class="c1">// get two numbers and store in variable x and y respectively</span>
+
+     <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"You entered "</span> <span class="o">&lt;&lt;</span> <span class="n">x</span> <span class="o">&lt;&lt;</span> <span class="s">" and "</span> <span class="o">&lt;&lt;</span> <span class="n">y</span> <span class="o">&lt;&lt;</span> <span class="sc">'\n'</span><span class="p">;</span>
+
+     <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+ <span class="p">}</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Not having to define std namespace in each line</p>
+
+    <p>We can define std namespace before function declaration:
+```cpp
+ using namespace std;
+ int main():
+ {
+     cout«“Hello World”
+     reutrn 0;
+ }</p>
+  </li>
+  <li>
+    <p>Difference between \n and endl in CPP</p>
+
+    <p>Both can be used in code as shown below:</p>
+    <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Hello World"</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span>
+ <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Hey World"</span> <span class="o">&lt;&lt;</span> <span class="s">"</span><span class="se">\n</span><span class="s">"</span>
+</code></pre></div>    </div>
+
+    <p><img src="/images/endl_%5Cn.png" alt="Difference Between endl and \n" /></p>
+  </li>
+</ol>
+      <h1 id="memory-allocations-and-sizes">
+        
+        
+          <a href="#memory-allocations-and-sizes" class="anchor-heading" aria-labelledby="memory-allocations-and-sizes"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Memory Allocations and Sizes
+        
+        
+      </h1>
+    
+
+<p>To check the memory consumed by different variable types we can do the following:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span>
+<span class="k">sizeof</span><span class="p">(</span><span class="kt">double</span><span class="p">)</span>
+</code></pre></div></div>
+<p>The above code will return a string</p>
+      <h2 id="uninitialized-variables">
+        
+        
+          <a href="#uninitialized-variables" class="anchor-heading" aria-labelledby="uninitialized-variables"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Uninitialized Variables
+        
+        
+      </h2>
+    
+
+<p>Unlike some programming languages, C/C++ does not initialize most variables to a given value (such as zero) automatically. Thus when a variable is assigned a memory location by the compiler, the default value of that variable is whatever (garbage) value happens to already be in that memory location!</p>
+
+<p>Therefore if you don’t give it any value it becomes uninitialized</p>
+      <h2 id="variable-naming-conventions">
+        
+        
+          <a href="#variable-naming-conventions" class="anchor-heading" aria-labelledby="variable-naming-conventions"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Variable naming conventions
+        
+        
+      </h2>
+    
+
+<ul>
+  <li>
+    <p>Most often, function names are also started with a lowercase letter, as are all of the functions in the standard C++ libraries</p>
+  </li>
+  <li>
+    <p>Identifier names that start with a capital letter are typically used for user-defined types (such as structs, classes, and enumerations)</p>
+  </li>
+  <li>
+    <p>If the variable or function name is multi-word, there are two common conventions: words separated by underscores, called snake_case, or intercapped (sometimes called camelCase, since the capital letters stick up like the humps on a camel)</p>
+  </li>
+  <li>
+    <p>You should avoid naming your identifiers starting with an underscore, as these names are typically reserved for OS, library, and/or compiler use</p>
+  </li>
+</ul>
+      <h2 id="formatting-best-practices">
+        
+        
+          <a href="#formatting-best-practices" class="anchor-heading" aria-labelledby="formatting-best-practices"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Formatting Best Practices
+        
+        
+      </h2>
+    
+
+<ol>
+  <li>
+    <p>Each statement within curly braces should start one tab in from the opening brace as seen below:</p>
+
+    <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+ <span class="p">{</span>
+     <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Hello world!</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span> <span class="c1">// tabbed in one tab (4 spaces)</span>
+     <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Nice to meet you.</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span> <span class="c1">// tabbed in one tab (4 spaces)</span>
+ <span class="p">}</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Cap line length as done by common linters (<strong>80 is what is suggested here</strong>)</p>
+
+    <p>multiline statements look like this:</p>
+    <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+ <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"This is a really, really, really, really, really, really, really, "</span>
+         <span class="s">"really long line</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span> <span class="c1">// one extra indentation for continuation line</span>
+
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"This is another really, really, really, really, really, really, really, "</span>
+                 <span class="s">"really long line</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span> <span class="c1">// text aligned with the previous line for continuation line</span>
+
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"This one is short</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+ <span class="p">}</span>
+</code></pre></div>    </div>
+  </li>
+</ol>
+      <h2 id="commenting">
+        
+        
+          <a href="#commenting" class="anchor-heading" aria-labelledby="commenting"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Commenting
+        
+        
+      </h2>
+    
+
+<ol>
+  <li>
+    <p>Single-line comments</p>
+
+    <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Hello world!"</span><span class="p">;</span> <span class="c1">// Everything from here to the end of the line is ignored</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Multi-line comments</p>
+
+    <p>This can be achieved in two ways:</p>
+    <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="cm">/* This is a multi-line comment.
+This line will be ignored.
+So will this one. */</span>
+</code></pre></div>    </div>
+
+    <p>Or</p>
+    <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/* This is a multi-line comment.
+ * the matching asterisks to the left
+ * can make this easier to read
+ */</span>
+</code></pre></div>    </div>
+  </li>
+</ol>
+      <h1 id="arithmetic-operations">
+        
+        
+          <a href="#arithmetic-operations" class="anchor-heading" aria-labelledby="arithmetic-operations"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Arithmetic Operations
+        
+        
+      </h1>
+    
+      <h2 id="cmath-library">
+        
+        
+          <a href="#cmath-library" class="anchor-heading" aria-labelledby="cmath-library"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> cmath library
+        
+        
+      </h2>
+    
+
+<p>This allows for uses like exponentials</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;cmath&gt;
+</span>
+<span class="n">std</span><span class="o">::</span><span class="n">pow</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">exponent</span><span class="p">);</span>
+<span class="n">M_PI</span> <span class="o">=</span> <span class="mf">3.14</span> <span class="c1">//it has more decimal places not shown here</span>
+<span class="c1">// M_PI is a standard variable of the cmath library</span>
+</code></pre></div></div>
+      <h2 id="weird-implicit-conversions">
+        
+        
+          <a href="#weird-implicit-conversions" class="anchor-heading" aria-labelledby="weird-implicit-conversions"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Weird Implicit conversions
+        
+        
+      </h2>
+    
+
+<p>Check out the following code:</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;iostream&gt;
+</span><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">numerator</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">denominator</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+
+    <span class="kt">float</span> <span class="n">answer</span> <span class="o">=</span> <span class="n">numerator</span> <span class="o">/</span> <span class="n">denominator</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">"answer = "</span><span class="o">&lt;&lt;</span><span class="n">answer</span><span class="p">;</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>The output for the above scrit is <code class="language-plaintext highlighter-rouge">0</code>
+Which is messed up because answer datatype is float xD</p>
+
+<p>The corrections to the above code to get <code class="language-plaintext highlighter-rouge">answer = 0.8</code> is:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;iostream&gt;
+</span><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">float</span> <span class="n">numerator</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
+    <span class="kt">float</span> <span class="n">denominator</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+
+    <span class="kt">float</span> <span class="n">answer</span> <span class="o">=</span> <span class="n">numerator</span> <span class="o">/</span> <span class="n">denominator</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">"answer = "</span><span class="o">&lt;&lt;</span><span class="n">answer</span><span class="p">;</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+      <h2 id="prefix-and-postfix-operators">
+        
+        
+          <a href="#prefix-and-postfix-operators" class="anchor-heading" aria-labelledby="prefix-and-postfix-operators"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Prefix and Postfix operators
+        
+        
+      </h2>
+    
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;iostream&gt;
+</span> 
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">n1</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">n2</span> <span class="o">=</span> <span class="o">++</span><span class="n">n1</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">n3</span> <span class="o">=</span> <span class="o">++</span> <span class="o">++</span><span class="n">n1</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">n4</span> <span class="o">=</span> <span class="n">n1</span><span class="o">++</span><span class="p">;</span>
+<span class="c1">//  int n5 = n1++ ++;   // error</span>
+<span class="c1">//  int n6 = n1 + ++n1; // undefined behavior</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"n1 = "</span> <span class="o">&lt;&lt;</span> <span class="n">n1</span> <span class="o">&lt;&lt;</span> <span class="sc">'\n'</span>
+              <span class="o">&lt;&lt;</span> <span class="s">"n2 = "</span> <span class="o">&lt;&lt;</span> <span class="n">n2</span> <span class="o">&lt;&lt;</span> <span class="sc">'\n'</span>
+              <span class="o">&lt;&lt;</span> <span class="s">"n3 = "</span> <span class="o">&lt;&lt;</span> <span class="n">n3</span> <span class="o">&lt;&lt;</span> <span class="sc">'\n'</span>
+              <span class="o">&lt;&lt;</span> <span class="s">"n4 = "</span> <span class="o">&lt;&lt;</span> <span class="n">n4</span> <span class="o">&lt;&lt;</span> <span class="sc">'\n'</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>The output for the above is:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>n1 <span class="o">=</span> 5
+n2 <span class="o">=</span> 2
+n3 <span class="o">=</span> 4
+n4 <span class="o">=</span> 4
+</code></pre></div></div>
+
+        
+
+        
+
+        
+        
+          <hr>
+          <footer>
+            
+
+            <p class="text-small text-grey-dk-100 mb-0"></p>
+
+            
+              <div class="d-flex mt-2">
+                
+                
+              </div>
+            
+          </footer>
+        
+
+      </div>
+    </div>
+
+    
+      
+
+      <div class="search-overlay"></div>
+    
+  </div>
+</body>
+</html>
+
