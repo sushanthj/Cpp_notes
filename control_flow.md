@@ -93,6 +93,26 @@ switch(menuItem)
 ```
 If the break statement is not specified (which still works), the next cases after the selection will cascade and be executed
 
+Another example
+
+```cpp
+void calculate(float in1, float in2, char op, float &ans)
+{
+    switch(op)
+    {
+        case '+': ans = in1 + in2;
+                  break;
+        case '-': ans = in1 - in2;
+                  break;   
+        case '*': ans = in1 * in2;
+                  break;
+        case '/': ans = in1 / in2;
+                  break;
+        default:  std::cout<<"Illegal operation\n";
+    }
+}
+```
+
 # Loops
 
 1. Simple init, condition, increment **for loops**:

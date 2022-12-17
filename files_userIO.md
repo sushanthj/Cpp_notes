@@ -219,6 +219,35 @@ int main()
 }
 ```
 
+### Summarizing User IO options
+```cpp
+//Get the values of each variable
+    std::cout<<"integer = \n";
+    std::cin>>givenInt;
+    std::cout<<"float = \n";
+    std::cin>>givenFloat;
+    std::cout<<"double = \n";
+    std::cin>>givenDouble;
+    //We need to use cin.ignore so cin will ignore 
+   //the characters in the buffer leftover
+   //from the givenDouble
+    std::cin.ignore();
+    std::cout<<"character = \n";
+    std::cin>>givenChar;
+
+    std::cout<<"string = \n";
+    std::cin.ignore();
+    std::getline (std::cin,givenString);
+
+
+    //The value stored in the data
+    std::cout<<"integer = "<<givenInt<<"\n";
+    std::cout<<"float = "<<givenFloat<<"\n";
+    std::cout<<"double = "<<givenDouble<<"\n";
+    std::cout<<"string = "<<givenString<<"\n";
+    std::cout<<"character = "<<(char)givenChar<<"\n\n";
+```
+
 ## Using scanf
 ```cpp
 #include <iostream>

@@ -35,7 +35,7 @@
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="Files, User IO and Variables" />
 <script type="application/ld+json">
-{"headline":"Files, User IO and Variables","url":"/File_ops","@type":"WebPage","description":"Python Notes","@context":"https://schema.org"}</script>
+{"url":"/File_ops","@type":"WebPage","headline":"Files, User IO and Variables","description":"Python Notes","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -154,6 +154,7 @@
       <li><a href="#differnt-ways-to-taking-user-input" id="markdown-toc-differnt-ways-to-taking-user-input">Differnt ways to taking User Input</a>        <ol>
           <li><a href="#case-study-taking-user-input-and-converting-the-input-string-to-float" id="markdown-toc-case-study-taking-user-input-and-converting-the-input-string-to-float">Case Study: Taking User input and converting the input string to float</a></li>
           <li><a href="#case-study-directly-taking-int-input" id="markdown-toc-case-study-directly-taking-int-input">Case Study: Directly taking int input</a></li>
+          <li><a href="#summarizing-user-io-options" id="markdown-toc-summarizing-user-io-options">Summarizing User IO options</a></li>
         </ol>
       </li>
       <li><a href="#using-scanf" id="markdown-toc-using-scanf">Using scanf</a></li>
@@ -450,6 +451,40 @@ should contain info on <strong>what</strong> to do the task</p>
     <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">guess</span><span class="o">&lt;&lt;</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
   <span class="p">}</span>
 <span class="p">}</span>
+</code></pre></div></div>
+      <h3 id="summarizing-user-io-options">
+        
+        
+          <a href="#summarizing-user-io-options" class="anchor-heading" aria-labelledby="summarizing-user-io-options"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Summarizing User IO options
+        
+        
+      </h3>
+    
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//Get the values of each variable</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">"integer = </span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cin</span><span class="o">&gt;&gt;</span><span class="n">givenInt</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">"float = </span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cin</span><span class="o">&gt;&gt;</span><span class="n">givenFloat</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">"double = </span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cin</span><span class="o">&gt;&gt;</span><span class="n">givenDouble</span><span class="p">;</span>
+    <span class="c1">//We need to use cin.ignore so cin will ignore </span>
+   <span class="c1">//the characters in the buffer leftover</span>
+   <span class="c1">//from the givenDouble</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cin</span><span class="p">.</span><span class="n">ignore</span><span class="p">();</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">"character = </span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cin</span><span class="o">&gt;&gt;</span><span class="n">givenChar</span><span class="p">;</span>
+
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">"string = </span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cin</span><span class="p">.</span><span class="n">ignore</span><span class="p">();</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">getline</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">cin</span><span class="p">,</span><span class="n">givenString</span><span class="p">);</span>
+
+
+    <span class="c1">//The value stored in the data</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">"integer = "</span><span class="o">&lt;&lt;</span><span class="n">givenInt</span><span class="o">&lt;&lt;</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">"float = "</span><span class="o">&lt;&lt;</span><span class="n">givenFloat</span><span class="o">&lt;&lt;</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">"double = "</span><span class="o">&lt;&lt;</span><span class="n">givenDouble</span><span class="o">&lt;&lt;</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">"string = "</span><span class="o">&lt;&lt;</span><span class="n">givenString</span><span class="o">&lt;&lt;</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">"character = "</span><span class="o">&lt;&lt;</span><span class="p">(</span><span class="kt">char</span><span class="p">)</span><span class="n">givenChar</span><span class="o">&lt;&lt;</span><span class="s">"</span><span class="se">\n\n</span><span class="s">"</span><span class="p">;</span>
 </code></pre></div></div>
       <h2 id="using-scanf">
         

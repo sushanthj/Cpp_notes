@@ -35,7 +35,7 @@
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="Control Flow" />
 <script type="application/ld+json">
-{"headline":"Control Flow","url":"/Control_Flow","@type":"WebPage","description":"Python Notes","@context":"https://schema.org"}</script>
+{"url":"/Control_Flow","@type":"WebPage","headline":"Control Flow","description":"Python Notes","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -256,6 +256,25 @@
     <span class="p">}</span>
 </code></pre></div></div>
 <p>If the break statement is not specified (which still works), the next cases after the selection will cascade and be executed</p>
+
+<p>Another example</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">calculate</span><span class="p">(</span><span class="kt">float</span> <span class="n">in1</span><span class="p">,</span> <span class="kt">float</span> <span class="n">in2</span><span class="p">,</span> <span class="kt">char</span> <span class="n">op</span><span class="p">,</span> <span class="kt">float</span> <span class="o">&amp;</span><span class="n">ans</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">switch</span><span class="p">(</span><span class="n">op</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">case</span> <span class="sc">'+'</span><span class="p">:</span> <span class="n">ans</span> <span class="o">=</span> <span class="n">in1</span> <span class="o">+</span> <span class="n">in2</span><span class="p">;</span>
+                  <span class="k">break</span><span class="p">;</span>
+        <span class="k">case</span> <span class="sc">'-'</span><span class="p">:</span> <span class="n">ans</span> <span class="o">=</span> <span class="n">in1</span> <span class="o">-</span> <span class="n">in2</span><span class="p">;</span>
+                  <span class="k">break</span><span class="p">;</span>   
+        <span class="k">case</span> <span class="sc">'*'</span><span class="p">:</span> <span class="n">ans</span> <span class="o">=</span> <span class="n">in1</span> <span class="o">*</span> <span class="n">in2</span><span class="p">;</span>
+                  <span class="k">break</span><span class="p">;</span>
+        <span class="k">case</span> <span class="sc">'/'</span><span class="p">:</span> <span class="n">ans</span> <span class="o">=</span> <span class="n">in1</span> <span class="o">/</span> <span class="n">in2</span><span class="p">;</span>
+                  <span class="k">break</span><span class="p">;</span>
+        <span class="nl">default:</span>  <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">"Illegal operation</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
       <h1 id="loops">
         
         

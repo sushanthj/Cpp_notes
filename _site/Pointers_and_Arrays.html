@@ -35,7 +35,7 @@
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="Pointers &amp; Arrays" />
 <script type="application/ld+json">
-{"headline":"Pointers &amp; Arrays","url":"/Pointers_and_Arrays","@type":"WebPage","description":"Python Notes","@context":"https://schema.org"}</script>
+{"url":"/Pointers_and_Arrays","@type":"WebPage","headline":"Pointers &amp; Arrays","description":"Python Notes","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -141,6 +141,7 @@
   <li><a href="#arrays" id="markdown-toc-arrays">Arrays</a>    <ol>
       <li><a href="#case-study-counting-problem" id="markdown-toc-case-study-counting-problem">Case Study: Counting Problem</a></li>
       <li><a href="#case-study-search-problem" id="markdown-toc-case-study-search-problem">Case Study: Search Problem</a></li>
+      <li><a href="#pass-arrays-by-reference-to-functions" id="markdown-toc-pass-arrays-by-reference-to-functions">Pass arrays by reference to functions</a></li>
     </ol>
   </li>
   <li><a href="#multidimensional-arrays" id="markdown-toc-multidimensional-arrays">Multidimensional Arrays</a></li>
@@ -422,6 +423,72 @@ pointer of pointer of givenInt = 32
     <span class="p">}</span>
      <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
  <span class="p">}</span>
+</code></pre></div></div>
+      <h2 id="pass-arrays-by-reference-to-functions">
+        
+        
+          <a href="#pass-arrays-by-reference-to-functions" class="anchor-heading" aria-labelledby="pass-arrays-by-reference-to-functions"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Pass arrays by reference to functions
+        
+        
+      </h2>
+    
+
+<p>There are three ways of doing this:</p>
+<ul>
+  <li>void functionName(variableType *arrayName)</li>
+  <li>void functionName(variableType arrayName[length of array])</li>
+  <li>void functionName(variableType arrayName[])</li>
+</ul>
+
+<p>But in all the above ways, the array is always passed as a pointer internally</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="cp">#include&lt;iostream&gt;
+#include&lt;iomanip&gt;
+</span>
+<span class="c1">//Pass the array as a pointer</span>
+<span class="kt">void</span> <span class="nf">arrayAsPointer</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="n">array</span><span class="p">,</span> <span class="kt">int</span> <span class="n">size</span><span class="p">);</span>
+<span class="c1">//Pass the array as a sized array</span>
+<span class="kt">void</span> <span class="nf">arraySized</span><span class="p">(</span><span class="kt">int</span> <span class="n">array</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="kt">int</span> <span class="n">size</span><span class="p">);</span>
+<span class="c1">//Pass the array as an unsized array</span>
+<span class="kt">void</span> <span class="nf">arrayUnSized</span><span class="p">(</span><span class="kt">int</span> <span class="n">array</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">size</span><span class="p">);</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">const</span> <span class="kt">int</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">array</span><span class="p">[</span><span class="n">size</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">33</span><span class="p">,</span><span class="mi">66</span><span class="p">,</span><span class="mi">99</span><span class="p">};</span>
+    <span class="c1">//We are passing a pointer or reference to the array</span>
+    <span class="c1">//so we will not know the size of the array</span>
+    <span class="c1">//We have to pass the size to the function as well</span>
+    <span class="n">arrayAsPointer</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">size</span><span class="p">);</span>
+    <span class="n">arraySized</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">size</span><span class="p">);</span>
+    <span class="n">arrayUnSized</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">size</span><span class="p">);</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">arrayAsPointer</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="n">array</span><span class="p">,</span> <span class="kt">int</span> <span class="n">size</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">setw</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">size</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> 
+        <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">array</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">&lt;&lt;</span><span class="s">" "</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">arraySized</span><span class="p">(</span><span class="kt">int</span> <span class="n">array</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="kt">int</span> <span class="n">size</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">setw</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">size</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">array</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">&lt;&lt;</span><span class="s">" "</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>  
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">arrayUnSized</span><span class="p">(</span><span class="kt">int</span> <span class="n">array</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">size</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">setw</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">size</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">array</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">&lt;&lt;</span><span class="s">" "</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>  
+<span class="p">}</span>
 </code></pre></div></div>
       <h1 id="multidimensional-arrays">
         
