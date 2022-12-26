@@ -35,9 +35,18 @@ int main()
     
     //Print out the string values of each relational operation
     std::cout<<"a < b is "<<TorF[a<b];
+    std::cout<<"\na > b is "<<TorF[a>b];
+    std::cout<<"\na != b is "<<TorF[a!=b];
+    std::cout<<"\nc >= b is "<<TorF[c>=b];
+    std::cout<<"\nc <= b is "<<TorF[c<=b]; 
   
     return 0;
 }
+```
+
+Output:
+```
+a < b is False a > b is True a != b is True c >= b is True c <= b is True
 ```
 
 ### Logical operators in C++ are:

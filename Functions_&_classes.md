@@ -159,11 +159,46 @@ int doubleInput(const int, input)
 
 # Classes
 
+In C++ the class variables are automatically private. We can't call object variables
+easily like in python
+
+i.e. for example if we have a class:
+```c++
+#import<iostream>
+using namespace std;
+
+class Trial
+{
+    string trial_name;
+    int trial_number;
+};
+
+int main()
+{
+    Trial trial_first;
+
+    std::cout << trial_first.trial_name;
+
+    return 0;
+}
+```
+
+We'll get an error:
+```
+In function ‘int main()’: main.cpp:14:30: error: ‘std::string Trial::trial_name’ is private within this context 14
+```
+
 There is a concept called getter/setter in python. In C++ this is called a mutator
 
-**Definition**: Mutators are functions that access/modify data from an external class
+**Definition**: Mutators are functions that access/modify data from an external class \
+                
+                Here, the getter/setters use a python decorator called <@property> and 
+                <@var_name.setter> which define which function is to be called either for
+                getting a variable or setting the variable (this is why decorators are useful!) 
 
 ![python_getter_setter](images/getter_python.png)
+
+**C++ Getters and Setters**
 
 ![c++_setter](images/getter_setter_cpp.png)
 
@@ -387,11 +422,13 @@ class Dog
         ~Dog();
 };
 
+// Constructor
 Dog::Dog()
 {
    license = 0;
 }
 
+//Destructor
 Dog::~Dog()
 {
     cout<<"\nDeleting the dog";
@@ -535,9 +572,9 @@ void printRoster(Dog roster[], int size)
 
 ## 'this' Pointer
 
-Check out the following link for this pointers ![THIS_POINTER](https://www.geeksforgeeks.org/this-pointer-in-c/)
+Check out the following link for this pointers [THIS_POINTER](https://www.geeksforgeeks.org/this-pointer-in-c/)
 
-Check out this video for static class varible and understand the difference between memeber functions/variables of a class and static variables of a class. ![STATIC_VARS](https://www.youtube.com/watch?v=u8jw0LsQFFg&ab_channel=CppNuts)
+Check out this video for static class varible and understand the difference between memeber functions/variables of a class and static variables of a class. [STATIC_VARS](https://www.youtube.com/watch?v=u8jw0LsQFFg&ab_channel=CppNuts)
 
 ### Case 1: Using 'this' to make code more readable
 
@@ -580,6 +617,13 @@ int main()
 }
 ```
 
+**Note. In the above code you may be wondering why the class name and the function name 
+are the same. \ 
+This is becuase the public function Point is actually a constructor of the class. It will be
+called everytime we init the class and provide some arguments. 
+See [Overloading Constructors](#overloading-constructors)
+section for further information.
+
 ### Case 2: To return a reference to the class object and chain calls
 
 - As we learnt, `this` is a reference to each class object applied to non-static variables/member funcs (This is because static vars are common to each class btw, obviously explained in the video above pls watch)
@@ -588,3 +632,357 @@ int main()
 - But `&x` would return the address of x. Therefore `&` is the return type modifier. We see this used below
 
 ![chaining_calls](images/this_pointer_use.png)
+
+____________________________________________________________________________________________________________________________________
+
+# Overloading Functions
+
+Assume you have the following scenario:
+```cpp
+#include<iostream>
+
+int findSmallerInt(int input1, int input2);
+float findSmallerFloat(float input1, float input2);
+
+int main()
+{
+    int a = 5; 
+    int b = 4;
+    float f1 = 5.43;
+    float f2 = 6.32;
+    char c1 = 'c';
+    char c2 = 'z';
+    std::cout<<findSmallerInt(a,b)<<" is the smaller of "<<a<<" and "<<b<<"\n";
+    std::cout<<findSmallerFloat(f1,f2)<<" is the smaller of "<<f1<<" and "<<f2<<"\n";
+    
+    return 0;
+}
+
+int findSmallerInt(int input1, int input2)
+{
+    if(input1<input2)
+        return input1;
+    return input2;
+}
+float findSmallerFloat(float input1, float input2)
+{
+    if(input1<input2)
+        return input1;
+    return input2;
+}
+```
+
+Now, in the above code ```findSmallerInt``` and ```findSmallerFloat``` are essentially the
+same functions with different variable types. Now, we can use one function to work with both
+datatypes instead of using same function name for all using the logic of **Overlaoding**
+
+```cpp
+#include<iostream>
+
+//C++ allows us to 'overload' the same function name as long as
+//the variable types in the function inputs are different.
+
+class Compare
+{
+public:
+    int findSmaller(int input1, int input2);
+    float findSmaller(float input1, float input2);
+    char findSmaller(char input1, char input2);
+
+    int findSmaller(int input1, int input2, int input3);
+    float findSmaller(float input1, float input2, float input3);
+    char findSmaller(char input1, char input2, char input3);
+
+    int findSmaller(int arrayIn[], int size);
+    float findSmaller(float arrayIn[], int size);
+    char findSmaller(char arrayIn[], int size);
+};
+
+int Compare::findSmaller(int input1, int input2)
+{
+    if(input1<input2)
+        return input1;
+    return input2;
+}
+float Compare::findSmaller(float input1, float input2)
+{
+    if(input1<input2)
+        return input1;
+    return input2;
+}
+
+char Compare::findSmaller(char input1, char input2)
+{
+    if(input1<input2)
+        return input1;
+    return input2;
+}
+
+int Compare::findSmaller(int input1, int input2, int input3)
+{
+    if(input1 < input2)
+    {
+        if(input1 < input3)
+            return input1;
+        else
+            return input3;
+    }
+    else
+    {
+        if(input2 < input3)
+            return input2;
+        else
+            return input3;
+    }
+}
+
+float Compare::findSmaller(float input1, float input2, float input3)
+{
+    if(input1 < input2)
+    {
+        if(input1 < input3)
+            return input1;
+        else
+            return input3;
+    }
+    else
+    {
+        if(input2 < input3)
+            return input2;
+        else
+            return input3;
+    }
+}
+
+char Compare::findSmaller(char input1, char input2, char input3)
+{
+    if(input1 < input2)
+    {
+        if(input1 < input3)
+            return input1;
+        else
+            return input3;
+    }
+    else
+    {
+        if(input2 < input3)
+            return input2;
+        else
+            return input3;
+    }
+}
+
+int Compare::findSmaller(int arrayIn[], int size)
+{
+    {
+    for (int i = 0; i < size; ++i)
+        for (int j = 0; j < size - i - 1; ++j)
+         if (arrayIn[j] > arrayIn[j + 1])
+        {
+          int temp = arrayIn[j];
+          arrayIn[j] = arrayIn[j + 1];
+          arrayIn[j + 1] = temp;
+        }
+  }        
+    return arrayIn[0];
+}
+
+float Compare::findSmaller(float arrayIn[], int size)
+{
+    {
+    for (int i = 0; i < size; ++i)
+        for (int j = 0; j < size - i - 1; ++j)
+         if (arrayIn[j] > arrayIn[j + 1])
+        {
+          float temp = arrayIn[j];
+          arrayIn[j] = arrayIn[j + 1];
+          arrayIn[j + 1] = temp;
+        }
+  }        
+    return arrayIn[0];
+}
+
+char Compare::findSmaller(char arrayIn[], int size)
+{
+    {
+    for (int i = 0; i < size; ++i)
+        for (int j = 0; j < size - i - 1; ++j)
+         if (arrayIn[j] > arrayIn[j + 1])
+        {
+          int temp = arrayIn[j];
+          arrayIn[j] = arrayIn[j + 1];
+          arrayIn[j + 1] = temp;
+        }
+  }        
+    return arrayIn[0];
+}
+```
+
+
+
+## Overloading Constructors
+
+Now, it's nice to have a class with different options for constructing the object of the class
+
+We can do the following:
+
+```cpp
+//header file for main.hpp
+
+#include<iostream>
+#include<string>
+using namespace std;
+
+class Square
+{
+    private:
+        int length;
+        int width;
+    public:
+        Square();
+        Square(int lenIn, int widIn);
+        int getLength();
+        int getWidth();
+};
+
+Square::Square()
+{
+    length = 0;
+    width = 0;
+}
+
+Square::Square(int lenIn, int widIn)
+{
+    length = lenIn;
+    width = widIn;
+}
+
+int Square::getLength()
+{
+    return length;
+}
+
+int Square::getWidth()
+{
+    return width;
+}
+
+//______________________________________________________________//
+#include "main.hpp"
+
+int main()
+{
+    Square s1;
+    Square s2(4,3);
+    cout<<"s1 dimensions are: "<<s1.getWidth()<<","<<s1.getLength();
+    cout<<"\ns2 dimensions are: "<<s2.getWidth()<<","<<s2.getLength();
+    return 0;
+}
+```
+
+## Overloading Operators (seems like you'll use this lesser)
+
+header file (.hpp)
+```cpp
+#include <iostream>
+
+using namespace std;
+
+class Shape 
+{
+    private:
+      int length;     // Length of a box
+      int width;
+
+    public:
+      // Constructor definition
+      Shape(int l = 2, int w = 2) 
+      {
+         length = l;
+         width = w;
+      }
+
+      int getWidth()
+      {
+        return width;
+      }
+
+      int getLength()
+      {
+        return length;
+      }
+
+      double Area() 
+      {
+         return length * width;
+      }
+
+      // class function which performs the operator overloading
+      int operator +(Shape shapeIn)
+      {
+          return ((width + shapeIn.getWidth())*(length + shapeIn.getLength()));
+      }
+};
+```
+
+main file(.cpp)
+```cpp
+int main(void) 
+{
+   Shape sh1(4, 4);    // Declare shape1
+   Shape sh2(2, 6);    // Declare shape2
+   Shape sh3;          //Declare shape3
+   
+   // the operator overloading (we are literally adding two objects of different type)
+   int total = sh1 + sh2;
+   
+   cout << "\nsh1.Area() = " << sh1.Area();
+   cout << "\nsh2.Area() = " << sh2.Area();
+   cout << "\nTotal = "<<total;
+   return 0;
+}
+```
+
+# Templates
+
+We can make our lives even easier by using templates in in addition to overloading:
+
+```cpp
+#include<iostream>
+
+using namespace std;
+
+//Our generic function
+template <typename T>  //tell the compiler we are using a template
+T findSmaller(T input1,T  input2); 
+
+int main()
+{
+    int a = 54; 
+    int b = 89;
+    float f1 = 7.8;
+    float f2 = 9.1;
+    char c1 = 'f';
+    char c2 = 'h';
+    string s1 = "Hello";
+    string s2 = "Bots are fun";
+    
+    //Wow! We can use one function for different variable types
+    cout<<"\nIntegers compared: "<<findSmaller(a,b);
+    cout<<"\nFloats compared: "<<findSmaller(f1,f2);
+    cout<<"\nChars compared: "<<findSmaller(c1,c2);
+    cout<<"\nStrings compared: "<<findSmaller(s1,s2);   
+    return 0;
+}
+
+template <typename T>
+T findSmaller(T  input1,T  input2)
+{
+    if(input1 < input2)
+        return input1;
+    else
+        return input2;
+}
+```
+
+![](/images/cpp_templates.png)

@@ -51,6 +51,11 @@ nav_order: 3
     }
     ```
 
+    Output:
+    ```
+    I'm not so sure January is the best month
+    ```
+
 ## Output formatting
 
 ### Using IOMANIP

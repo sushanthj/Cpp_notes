@@ -89,7 +89,7 @@
     </div>
     <nav role="navigation" aria-label="Main" id="site-nav" class="site-nav">
       
-        <ul class="nav-list"><li class="nav-list-item"><a href="/" class="nav-list-link">Home</a></li><li class="nav-list-item"><a href="/intro/" class="nav-list-link">Intro</a></li><li class="nav-list-item"><a href="/Basics" class="nav-list-link">Basics</a></li><li class="nav-list-item"><a href="/File_ops" class="nav-list-link">Files, User IO and Variables</a></li><li class="nav-list-item"><a href="/Control_Flow" class="nav-list-link">Control Flow</a></li><li class="nav-list-item"><a href="/Pointers_and_Arrays" class="nav-list-link">Pointers & Arrays</a></li><li class="nav-list-item active"><a href="/Functions_and_Classes" class="nav-list-link active">Functions and Classes</a></li><li class="nav-list-item"><a href="/General_troubleshooting" class="nav-list-link">General Troubleshooting</a></li><li class="nav-list-item"><a href="/git_concepts" class="nav-list-link">Git Concepts</a></li></ul>
+        <ul class="nav-list"><li class="nav-list-item"><a href="/" class="nav-list-link">Home</a></li><li class="nav-list-item"><a href="/intro/" class="nav-list-link">Intro</a></li><li class="nav-list-item"><a href="/Basics" class="nav-list-link">Basics</a></li><li class="nav-list-item"><a href="/File_ops" class="nav-list-link">Files, User IO and Variables</a></li><li class="nav-list-item"><a href="/Control_Flow" class="nav-list-link">Control Flow</a></li><li class="nav-list-item"><a href="/Pointers_and_Arrays" class="nav-list-link">Pointers & Arrays</a></li><li class="nav-list-item active"><a href="/Functions_and_Classes" class="nav-list-link active">Functions and Classes</a></li><li class="nav-list-item"><a href="/vectors" class="nav-list-link">Vectors</a></li><li class="nav-list-item"><a href="/Sets_and_maps" class="nav-list-link">Sets and Maps</a></li><li class="nav-list-item"><a href="/General_troubleshooting" class="nav-list-link">General Troubleshooting</a></li><li class="nav-list-item"><a href="/git_concepts" class="nav-list-link">Git Concepts</a></li></ul>
 
       
     </nav>
@@ -163,6 +163,12 @@
       </li>
     </ol>
   </li>
+  <li><a href="#overloading-functions" id="markdown-toc-overloading-functions">Overloading Functions</a>    <ol>
+      <li><a href="#overloading-constructors" id="markdown-toc-overloading-constructors">Overloading Constructors</a></li>
+      <li><a href="#overloading-operators-seems-like-youll-use-this-lesser" id="markdown-toc-overloading-operators-seems-like-youll-use-this-lesser">Overloading Operators (seems like you’ll use this lesser)</a></li>
+    </ol>
+  </li>
+  <li><a href="#templates" id="markdown-toc-templates">Templates</a></li>
 </ol>
 
 </details>
@@ -360,11 +366,45 @@
       </h1>
     
 
+<p>In C++ the class variables are automatically private. We can’t call object variables
+easily like in python</p>
+
+<p>i.e. for example if we have a class:</p>
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#import&lt;iostream&gt;
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">Trial</span>
+<span class="p">{</span>
+    <span class="n">string</span> <span class="n">trial_name</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">trial_number</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">Trial</span> <span class="n">trial_first</span><span class="p">;</span>
+
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">trial_first</span><span class="p">.</span><span class="n">trial_name</span><span class="p">;</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>We’ll get an error:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>In function ‘int main()’: main.cpp:14:30: error: ‘std::string Trial::trial_name’ is private within this context 14
+</code></pre></div></div>
+
 <p>There is a concept called getter/setter in python. In C++ this is called a mutator</p>
 
-<p><strong>Definition</strong>: Mutators are functions that access/modify data from an external class</p>
+<p><strong>Definition</strong>: Mutators are functions that access/modify data from an external class \</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>            Here, the getter/setters use a python decorator called &lt;@property&gt; and 
+            &lt;@var_name.setter&gt; which define which function is to be called either for
+            getting a variable or setting the variable (this is why decorators are useful!) 
+</code></pre></div></div>
 
 <p><img src="images/getter_python.png" alt="python_getter_setter" /></p>
+
+<p><strong>C++ Getters and Setters</strong></p>
 
 <p><img src="images/getter_setter_cpp.png" alt="c++_setter" /></p>
 
@@ -604,11 +644,13 @@
         <span class="o">~</span><span class="n">Dog</span><span class="p">();</span>
 <span class="p">};</span>
 
+<span class="c1">// Constructor</span>
 <span class="n">Dog</span><span class="o">::</span><span class="n">Dog</span><span class="p">()</span>
 <span class="p">{</span>
    <span class="n">license</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
 
+<span class="c1">//Destructor</span>
 <span class="n">Dog</span><span class="o">::~</span><span class="n">Dog</span><span class="p">()</span>
 <span class="p">{</span>
     <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">"</span><span class="se">\n</span><span class="s">Deleting the dog"</span><span class="p">;</span>
@@ -766,9 +808,9 @@
       </h2>
     
 
-<p>Check out the following link for this pointers <img src="https://www.geeksforgeeks.org/this-pointer-in-c/" alt="THIS_POINTER" /></p>
+<p>Check out the following link for this pointers <a href="https://www.geeksforgeeks.org/this-pointer-in-c/">THIS_POINTER</a></p>
 
-<p>Check out this video for static class varible and understand the difference between memeber functions/variables of a class and static variables of a class. <img src="https://www.youtube.com/watch?v=u8jw0LsQFFg&amp;ab_channel=CppNuts" alt="STATIC_VARS" /></p>
+<p>Check out this video for static class varible and understand the difference between memeber functions/variables of a class and static variables of a class. <a href="https://www.youtube.com/watch?v=u8jw0LsQFFg&amp;ab_channel=CppNuts">STATIC_VARS</a></p>
       <h3 id="case-1-using-this-to-make-code-more-readable">
         
         
@@ -814,6 +856,13 @@
     <span class="n">Point</span> <span class="n">p1</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="p">);</span>
 <span class="p">}</span>
 </code></pre></div></div>
+
+<p>**Note. In the above code you may be wondering why the class name and the function name 
+are the same. \ 
+This is becuase the public function Point is actually a constructor of the class. It will be
+called everytime we init the class and provide some arguments. 
+See <a href="#overloading-constructors">Overloading Constructors</a>
+section for further information.</p>
       <h3 id="case-2-to-return-a-reference-to-the-class-object-and-chain-calls">
         
         
@@ -831,7 +880,375 @@
   <li>But <code class="language-plaintext highlighter-rouge">&amp;x</code> would return the address of x. Therefore <code class="language-plaintext highlighter-rouge">&amp;</code> is the return type modifier. We see this used below</li>
 </ul>
 
-<p><img src="images/this_pointer_use.png" alt="chaining_calls" /></p>
+<p><img src="images/this_pointer_use.png" alt="chaining_calls" /></p><hr />
+      <h1 id="overloading-functions">
+        
+        
+          <a href="#overloading-functions" class="anchor-heading" aria-labelledby="overloading-functions"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Overloading Functions
+        
+        
+      </h1>
+    
+
+<p>Assume you have the following scenario:</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include&lt;iostream&gt;
+</span>
+<span class="kt">int</span> <span class="nf">findSmallerInt</span><span class="p">(</span><span class="kt">int</span> <span class="n">input1</span><span class="p">,</span> <span class="kt">int</span> <span class="n">input2</span><span class="p">);</span>
+<span class="kt">float</span> <span class="nf">findSmallerFloat</span><span class="p">(</span><span class="kt">float</span> <span class="n">input1</span><span class="p">,</span> <span class="kt">float</span> <span class="n">input2</span><span class="p">);</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span> 
+    <span class="kt">int</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
+    <span class="kt">float</span> <span class="n">f1</span> <span class="o">=</span> <span class="mf">5.43</span><span class="p">;</span>
+    <span class="kt">float</span> <span class="n">f2</span> <span class="o">=</span> <span class="mf">6.32</span><span class="p">;</span>
+    <span class="kt">char</span> <span class="n">c1</span> <span class="o">=</span> <span class="sc">'c'</span><span class="p">;</span>
+    <span class="kt">char</span> <span class="n">c2</span> <span class="o">=</span> <span class="sc">'z'</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">findSmallerInt</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)</span><span class="o">&lt;&lt;</span><span class="s">" is the smaller of "</span><span class="o">&lt;&lt;</span><span class="n">a</span><span class="o">&lt;&lt;</span><span class="s">" and "</span><span class="o">&lt;&lt;</span><span class="n">b</span><span class="o">&lt;&lt;</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">findSmallerFloat</span><span class="p">(</span><span class="n">f1</span><span class="p">,</span><span class="n">f2</span><span class="p">)</span><span class="o">&lt;&lt;</span><span class="s">" is the smaller of "</span><span class="o">&lt;&lt;</span><span class="n">f1</span><span class="o">&lt;&lt;</span><span class="s">" and "</span><span class="o">&lt;&lt;</span><span class="n">f2</span><span class="o">&lt;&lt;</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+    
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">findSmallerInt</span><span class="p">(</span><span class="kt">int</span> <span class="n">input1</span><span class="p">,</span> <span class="kt">int</span> <span class="n">input2</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">input1</span><span class="o">&lt;</span><span class="n">input2</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">input1</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">input2</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kt">float</span> <span class="nf">findSmallerFloat</span><span class="p">(</span><span class="kt">float</span> <span class="n">input1</span><span class="p">,</span> <span class="kt">float</span> <span class="n">input2</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">input1</span><span class="o">&lt;</span><span class="n">input2</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">input1</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">input2</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Now, in the above code <code class="language-plaintext highlighter-rouge">findSmallerInt</code> and <code class="language-plaintext highlighter-rouge">findSmallerFloat</code> are essentially the
+same functions with different variable types. Now, we can use one function to work with both
+datatypes instead of using same function name for all using the logic of <strong>Overlaoding</strong></p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include&lt;iostream&gt;
+</span>
+<span class="c1">//C++ allows us to 'overload' the same function name as long as</span>
+<span class="c1">//the variable types in the function inputs are different.</span>
+
+<span class="k">class</span> <span class="nc">Compare</span>
+<span class="p">{</span>
+<span class="nl">public:</span>
+    <span class="kt">int</span> <span class="n">findSmaller</span><span class="p">(</span><span class="kt">int</span> <span class="n">input1</span><span class="p">,</span> <span class="kt">int</span> <span class="n">input2</span><span class="p">);</span>
+    <span class="kt">float</span> <span class="n">findSmaller</span><span class="p">(</span><span class="kt">float</span> <span class="n">input1</span><span class="p">,</span> <span class="kt">float</span> <span class="n">input2</span><span class="p">);</span>
+    <span class="kt">char</span> <span class="n">findSmaller</span><span class="p">(</span><span class="kt">char</span> <span class="n">input1</span><span class="p">,</span> <span class="kt">char</span> <span class="n">input2</span><span class="p">);</span>
+
+    <span class="kt">int</span> <span class="n">findSmaller</span><span class="p">(</span><span class="kt">int</span> <span class="n">input1</span><span class="p">,</span> <span class="kt">int</span> <span class="n">input2</span><span class="p">,</span> <span class="kt">int</span> <span class="n">input3</span><span class="p">);</span>
+    <span class="kt">float</span> <span class="n">findSmaller</span><span class="p">(</span><span class="kt">float</span> <span class="n">input1</span><span class="p">,</span> <span class="kt">float</span> <span class="n">input2</span><span class="p">,</span> <span class="kt">float</span> <span class="n">input3</span><span class="p">);</span>
+    <span class="kt">char</span> <span class="n">findSmaller</span><span class="p">(</span><span class="kt">char</span> <span class="n">input1</span><span class="p">,</span> <span class="kt">char</span> <span class="n">input2</span><span class="p">,</span> <span class="kt">char</span> <span class="n">input3</span><span class="p">);</span>
+
+    <span class="kt">int</span> <span class="n">findSmaller</span><span class="p">(</span><span class="kt">int</span> <span class="n">arrayIn</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">size</span><span class="p">);</span>
+    <span class="kt">float</span> <span class="n">findSmaller</span><span class="p">(</span><span class="kt">float</span> <span class="n">arrayIn</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">size</span><span class="p">);</span>
+    <span class="kt">char</span> <span class="n">findSmaller</span><span class="p">(</span><span class="kt">char</span> <span class="n">arrayIn</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">size</span><span class="p">);</span>
+<span class="p">};</span>
+
+<span class="kt">int</span> <span class="n">Compare</span><span class="o">::</span><span class="n">findSmaller</span><span class="p">(</span><span class="kt">int</span> <span class="n">input1</span><span class="p">,</span> <span class="kt">int</span> <span class="n">input2</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">input1</span><span class="o">&lt;</span><span class="n">input2</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">input1</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">input2</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kt">float</span> <span class="n">Compare</span><span class="o">::</span><span class="n">findSmaller</span><span class="p">(</span><span class="kt">float</span> <span class="n">input1</span><span class="p">,</span> <span class="kt">float</span> <span class="n">input2</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">input1</span><span class="o">&lt;</span><span class="n">input2</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">input1</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">input2</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">char</span> <span class="n">Compare</span><span class="o">::</span><span class="n">findSmaller</span><span class="p">(</span><span class="kt">char</span> <span class="n">input1</span><span class="p">,</span> <span class="kt">char</span> <span class="n">input2</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">input1</span><span class="o">&lt;</span><span class="n">input2</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">input1</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">input2</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="n">Compare</span><span class="o">::</span><span class="n">findSmaller</span><span class="p">(</span><span class="kt">int</span> <span class="n">input1</span><span class="p">,</span> <span class="kt">int</span> <span class="n">input2</span><span class="p">,</span> <span class="kt">int</span> <span class="n">input3</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">input1</span> <span class="o">&lt;</span> <span class="n">input2</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">input1</span> <span class="o">&lt;</span> <span class="n">input3</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">input1</span><span class="p">;</span>
+        <span class="k">else</span>
+            <span class="k">return</span> <span class="n">input3</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">else</span>
+    <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">input2</span> <span class="o">&lt;</span> <span class="n">input3</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">input2</span><span class="p">;</span>
+        <span class="k">else</span>
+            <span class="k">return</span> <span class="n">input3</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">float</span> <span class="n">Compare</span><span class="o">::</span><span class="n">findSmaller</span><span class="p">(</span><span class="kt">float</span> <span class="n">input1</span><span class="p">,</span> <span class="kt">float</span> <span class="n">input2</span><span class="p">,</span> <span class="kt">float</span> <span class="n">input3</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">input1</span> <span class="o">&lt;</span> <span class="n">input2</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">input1</span> <span class="o">&lt;</span> <span class="n">input3</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">input1</span><span class="p">;</span>
+        <span class="k">else</span>
+            <span class="k">return</span> <span class="n">input3</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">else</span>
+    <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">input2</span> <span class="o">&lt;</span> <span class="n">input3</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">input2</span><span class="p">;</span>
+        <span class="k">else</span>
+            <span class="k">return</span> <span class="n">input3</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">char</span> <span class="n">Compare</span><span class="o">::</span><span class="n">findSmaller</span><span class="p">(</span><span class="kt">char</span> <span class="n">input1</span><span class="p">,</span> <span class="kt">char</span> <span class="n">input2</span><span class="p">,</span> <span class="kt">char</span> <span class="n">input3</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">input1</span> <span class="o">&lt;</span> <span class="n">input2</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">input1</span> <span class="o">&lt;</span> <span class="n">input3</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">input1</span><span class="p">;</span>
+        <span class="k">else</span>
+            <span class="k">return</span> <span class="n">input3</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">else</span>
+    <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">input2</span> <span class="o">&lt;</span> <span class="n">input3</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">input2</span><span class="p">;</span>
+        <span class="k">else</span>
+            <span class="k">return</span> <span class="n">input3</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="n">Compare</span><span class="o">::</span><span class="n">findSmaller</span><span class="p">(</span><span class="kt">int</span> <span class="n">arrayIn</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">size</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">size</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">size</span> <span class="o">-</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span> <span class="o">++</span><span class="n">j</span><span class="p">)</span>
+         <span class="k">if</span> <span class="p">(</span><span class="n">arrayIn</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">arrayIn</span><span class="p">[</span><span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span>
+        <span class="p">{</span>
+          <span class="kt">int</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">arrayIn</span><span class="p">[</span><span class="n">j</span><span class="p">];</span>
+          <span class="n">arrayIn</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">arrayIn</span><span class="p">[</span><span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">];</span>
+          <span class="n">arrayIn</span><span class="p">[</span><span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">temp</span><span class="p">;</span>
+        <span class="p">}</span>
+  <span class="p">}</span>        
+    <span class="k">return</span> <span class="n">arrayIn</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+<span class="p">}</span>
+
+<span class="kt">float</span> <span class="n">Compare</span><span class="o">::</span><span class="n">findSmaller</span><span class="p">(</span><span class="kt">float</span> <span class="n">arrayIn</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">size</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">size</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">size</span> <span class="o">-</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span> <span class="o">++</span><span class="n">j</span><span class="p">)</span>
+         <span class="k">if</span> <span class="p">(</span><span class="n">arrayIn</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">arrayIn</span><span class="p">[</span><span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span>
+        <span class="p">{</span>
+          <span class="kt">float</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">arrayIn</span><span class="p">[</span><span class="n">j</span><span class="p">];</span>
+          <span class="n">arrayIn</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">arrayIn</span><span class="p">[</span><span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">];</span>
+          <span class="n">arrayIn</span><span class="p">[</span><span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">temp</span><span class="p">;</span>
+        <span class="p">}</span>
+  <span class="p">}</span>        
+    <span class="k">return</span> <span class="n">arrayIn</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+<span class="p">}</span>
+
+<span class="kt">char</span> <span class="n">Compare</span><span class="o">::</span><span class="n">findSmaller</span><span class="p">(</span><span class="kt">char</span> <span class="n">arrayIn</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">size</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">size</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">size</span> <span class="o">-</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span> <span class="o">++</span><span class="n">j</span><span class="p">)</span>
+         <span class="k">if</span> <span class="p">(</span><span class="n">arrayIn</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">arrayIn</span><span class="p">[</span><span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span>
+        <span class="p">{</span>
+          <span class="kt">int</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">arrayIn</span><span class="p">[</span><span class="n">j</span><span class="p">];</span>
+          <span class="n">arrayIn</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">arrayIn</span><span class="p">[</span><span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">];</span>
+          <span class="n">arrayIn</span><span class="p">[</span><span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">temp</span><span class="p">;</span>
+        <span class="p">}</span>
+  <span class="p">}</span>        
+    <span class="k">return</span> <span class="n">arrayIn</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+<span class="p">}</span>
+</code></pre></div></div>
+      <h2 id="overloading-constructors">
+        
+        
+          <a href="#overloading-constructors" class="anchor-heading" aria-labelledby="overloading-constructors"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Overloading Constructors
+        
+        
+      </h2>
+    
+
+<p>Now, it’s nice to have a class with different options for constructing the object of the class</p>
+
+<p>We can do the following:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//header file for main.hpp</span>
+
+<span class="cp">#include&lt;iostream&gt;
+#include&lt;string&gt;
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">Square</span>
+<span class="p">{</span>
+    <span class="nl">private:</span>
+        <span class="kt">int</span> <span class="n">length</span><span class="p">;</span>
+        <span class="kt">int</span> <span class="n">width</span><span class="p">;</span>
+    <span class="nl">public:</span>
+        <span class="n">Square</span><span class="p">();</span>
+        <span class="n">Square</span><span class="p">(</span><span class="kt">int</span> <span class="n">lenIn</span><span class="p">,</span> <span class="kt">int</span> <span class="n">widIn</span><span class="p">);</span>
+        <span class="kt">int</span> <span class="n">getLength</span><span class="p">();</span>
+        <span class="kt">int</span> <span class="n">getWidth</span><span class="p">();</span>
+<span class="p">};</span>
+
+<span class="n">Square</span><span class="o">::</span><span class="n">Square</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">length</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">width</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">Square</span><span class="o">::</span><span class="n">Square</span><span class="p">(</span><span class="kt">int</span> <span class="n">lenIn</span><span class="p">,</span> <span class="kt">int</span> <span class="n">widIn</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">length</span> <span class="o">=</span> <span class="n">lenIn</span><span class="p">;</span>
+    <span class="n">width</span> <span class="o">=</span> <span class="n">widIn</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="n">Square</span><span class="o">::</span><span class="n">getLength</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="n">length</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="n">Square</span><span class="o">::</span><span class="n">getWidth</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="n">width</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">//______________________________________________________________//</span>
+<span class="cp">#include "main.hpp"
+</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">Square</span> <span class="n">s1</span><span class="p">;</span>
+    <span class="n">Square</span> <span class="n">s2</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">3</span><span class="p">);</span>
+    <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">"s1 dimensions are: "</span><span class="o">&lt;&lt;</span><span class="n">s1</span><span class="p">.</span><span class="n">getWidth</span><span class="p">()</span><span class="o">&lt;&lt;</span><span class="s">","</span><span class="o">&lt;&lt;</span><span class="n">s1</span><span class="p">.</span><span class="n">getLength</span><span class="p">();</span>
+    <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">"</span><span class="se">\n</span><span class="s">s2 dimensions are: "</span><span class="o">&lt;&lt;</span><span class="n">s2</span><span class="p">.</span><span class="n">getWidth</span><span class="p">()</span><span class="o">&lt;&lt;</span><span class="s">","</span><span class="o">&lt;&lt;</span><span class="n">s2</span><span class="p">.</span><span class="n">getLength</span><span class="p">();</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+      <h2 id="overloading-operators-seems-like-youll-use-this-lesser">
+        
+        
+          <a href="#overloading-operators-seems-like-youll-use-this-lesser" class="anchor-heading" aria-labelledby="overloading-operators-seems-like-youll-use-this-lesser"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Overloading Operators (seems like you’ll use this lesser)
+        
+        
+      </h2>
+    
+
+<p>header file (.hpp)</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;iostream&gt;
+</span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">Shape</span> 
+<span class="p">{</span>
+    <span class="nl">private:</span>
+      <span class="kt">int</span> <span class="n">length</span><span class="p">;</span>     <span class="c1">// Length of a box</span>
+      <span class="kt">int</span> <span class="n">width</span><span class="p">;</span>
+
+    <span class="nl">public:</span>
+      <span class="c1">// Constructor definition</span>
+      <span class="n">Shape</span><span class="p">(</span><span class="kt">int</span> <span class="n">l</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="kt">int</span> <span class="n">w</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span> 
+      <span class="p">{</span>
+         <span class="n">length</span> <span class="o">=</span> <span class="n">l</span><span class="p">;</span>
+         <span class="n">width</span> <span class="o">=</span> <span class="n">w</span><span class="p">;</span>
+      <span class="p">}</span>
+
+      <span class="kt">int</span> <span class="n">getWidth</span><span class="p">()</span>
+      <span class="p">{</span>
+        <span class="k">return</span> <span class="n">width</span><span class="p">;</span>
+      <span class="p">}</span>
+
+      <span class="kt">int</span> <span class="n">getLength</span><span class="p">()</span>
+      <span class="p">{</span>
+        <span class="k">return</span> <span class="n">length</span><span class="p">;</span>
+      <span class="p">}</span>
+
+      <span class="kt">double</span> <span class="n">Area</span><span class="p">()</span> 
+      <span class="p">{</span>
+         <span class="k">return</span> <span class="n">length</span> <span class="o">*</span> <span class="n">width</span><span class="p">;</span>
+      <span class="p">}</span>
+
+      <span class="c1">// class function which performs the operator overloading</span>
+      <span class="kt">int</span> <span class="k">operator</span> <span class="o">+</span><span class="p">(</span><span class="n">Shape</span> <span class="n">shapeIn</span><span class="p">)</span>
+      <span class="p">{</span>
+          <span class="k">return</span> <span class="p">((</span><span class="n">width</span> <span class="o">+</span> <span class="n">shapeIn</span><span class="p">.</span><span class="n">getWidth</span><span class="p">())</span><span class="o">*</span><span class="p">(</span><span class="n">length</span> <span class="o">+</span> <span class="n">shapeIn</span><span class="p">.</span><span class="n">getLength</span><span class="p">()));</span>
+      <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<p>main file(.cpp)</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> 
+<span class="p">{</span>
+   <span class="n">Shape</span> <span class="n">sh1</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span>    <span class="c1">// Declare shape1</span>
+   <span class="n">Shape</span> <span class="n">sh2</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">);</span>    <span class="c1">// Declare shape2</span>
+   <span class="n">Shape</span> <span class="n">sh3</span><span class="p">;</span>          <span class="c1">//Declare shape3</span>
+   
+   <span class="c1">// the operator overloading (we are literally adding two objects of different type)</span>
+   <span class="kt">int</span> <span class="n">total</span> <span class="o">=</span> <span class="n">sh1</span> <span class="o">+</span> <span class="n">sh2</span><span class="p">;</span>
+   
+   <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"</span><span class="se">\n</span><span class="s">sh1.Area() = "</span> <span class="o">&lt;&lt;</span> <span class="n">sh1</span><span class="p">.</span><span class="n">Area</span><span class="p">();</span>
+   <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"</span><span class="se">\n</span><span class="s">sh2.Area() = "</span> <span class="o">&lt;&lt;</span> <span class="n">sh2</span><span class="p">.</span><span class="n">Area</span><span class="p">();</span>
+   <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"</span><span class="se">\n</span><span class="s">Total = "</span><span class="o">&lt;&lt;</span><span class="n">total</span><span class="p">;</span>
+   <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+      <h1 id="templates">
+        
+        
+          <a href="#templates" class="anchor-heading" aria-labelledby="templates"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Templates
+        
+        
+      </h1>
+    
+
+<p>We can make our lives even easier by using templates in in addition to overloading:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include&lt;iostream&gt;
+</span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="c1">//Our generic function</span>
+<span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="nc">T</span><span class="p">&gt;</span>  <span class="c1">//tell the compiler we are using a template</span>
+<span class="n">T</span> <span class="nf">findSmaller</span><span class="p">(</span><span class="n">T</span> <span class="n">input1</span><span class="p">,</span><span class="n">T</span>  <span class="n">input2</span><span class="p">);</span> 
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">54</span><span class="p">;</span> 
+    <span class="kt">int</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">89</span><span class="p">;</span>
+    <span class="kt">float</span> <span class="n">f1</span> <span class="o">=</span> <span class="mf">7.8</span><span class="p">;</span>
+    <span class="kt">float</span> <span class="n">f2</span> <span class="o">=</span> <span class="mf">9.1</span><span class="p">;</span>
+    <span class="kt">char</span> <span class="n">c1</span> <span class="o">=</span> <span class="sc">'f'</span><span class="p">;</span>
+    <span class="kt">char</span> <span class="n">c2</span> <span class="o">=</span> <span class="sc">'h'</span><span class="p">;</span>
+    <span class="n">string</span> <span class="n">s1</span> <span class="o">=</span> <span class="s">"Hello"</span><span class="p">;</span>
+    <span class="n">string</span> <span class="n">s2</span> <span class="o">=</span> <span class="s">"Bots are fun"</span><span class="p">;</span>
+    
+    <span class="c1">//Wow! We can use one function for different variable types</span>
+    <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">"</span><span class="se">\n</span><span class="s">Integers compared: "</span><span class="o">&lt;&lt;</span><span class="n">findSmaller</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">);</span>
+    <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">"</span><span class="se">\n</span><span class="s">Floats compared: "</span><span class="o">&lt;&lt;</span><span class="n">findSmaller</span><span class="p">(</span><span class="n">f1</span><span class="p">,</span><span class="n">f2</span><span class="p">);</span>
+    <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">"</span><span class="se">\n</span><span class="s">Chars compared: "</span><span class="o">&lt;&lt;</span><span class="n">findSmaller</span><span class="p">(</span><span class="n">c1</span><span class="p">,</span><span class="n">c2</span><span class="p">);</span>
+    <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">"</span><span class="se">\n</span><span class="s">Strings compared: "</span><span class="o">&lt;&lt;</span><span class="n">findSmaller</span><span class="p">(</span><span class="n">s1</span><span class="p">,</span><span class="n">s2</span><span class="p">);</span>   
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="nc">T</span><span class="p">&gt;</span>
+<span class="n">T</span> <span class="nf">findSmaller</span><span class="p">(</span><span class="n">T</span>  <span class="n">input1</span><span class="p">,</span><span class="n">T</span>  <span class="n">input2</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">input1</span> <span class="o">&lt;</span> <span class="n">input2</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">input1</span><span class="p">;</span>
+    <span class="k">else</span>
+        <span class="k">return</span> <span class="n">input2</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><img src="/images/cpp_templates.png" alt="" /></p>
 
         
 

@@ -1,0 +1,502 @@
+
+
+<!DOCTYPE html>
+
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+
+  
+
+  <link rel="shortcut icon" type="image/png" href="favicon.png">
+
+  <link rel="stylesheet" href="/assets/css/just-the-docs-default.css">
+
+  
+
+  
+    <script type="text/javascript" src="/assets/js/vendor/lunr.min.js"></script>
+  
+  <script type="text/javascript" src="/assets/js/just-the-docs.js"></script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Sets and Maps | C++ Notes</title>
+<meta name="generator" content="Jekyll v4.2.0" />
+<meta property="og:title" content="Sets and Maps" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Python Notes" />
+<meta property="og:description" content="Python Notes" />
+<link rel="canonical" href="/Sets_and_maps" />
+<meta property="og:url" content="/Sets_and_maps" />
+<meta property="og:site_name" content="C++ Notes" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Sets and Maps" />
+<script type="application/ld+json">
+{"url":"/Sets_and_maps","@type":"WebPage","headline":"Sets and Maps","description":"Python Notes","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+  
+
+</head>
+
+<body>
+  <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+    <symbol id="svg-link" viewBox="0 0 24 24">
+      <title>Link</title>
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link">
+        <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+      </svg>
+    </symbol>
+    <symbol id="svg-search" viewBox="0 0 24 24">
+      <title>Search</title>
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
+        <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+      </svg>
+    </symbol>
+    <symbol id="svg-menu" viewBox="0 0 24 24">
+      <title>Menu</title>
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu">
+        <line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>
+      </svg>
+    </symbol>
+    <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+      <title>Expand</title>
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+        <polyline points="9 18 15 12 9 6"></polyline>
+      </svg>
+    </symbol>
+    <symbol id="svg-doc" viewBox="0 0 24 24">
+      <title>Document</title>
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file">
+        <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline>
+      </svg>
+    </symbol>
+  </svg>
+
+  <div class="side-bar">
+    <div class="site-header">
+      <a href="/" class="site-title lh-tight">
+  C++ Notes
+
+</a>
+      <a href="#" id="menu-button" class="site-button">
+        <svg viewBox="0 0 24 24" class="icon"><use xlink:href="#svg-menu"></use></svg>
+      </a>
+    </div>
+    <nav role="navigation" aria-label="Main" id="site-nav" class="site-nav">
+      
+        <ul class="nav-list"><li class="nav-list-item"><a href="/" class="nav-list-link">Home</a></li><li class="nav-list-item"><a href="/intro/" class="nav-list-link">Intro</a></li><li class="nav-list-item"><a href="/Basics" class="nav-list-link">Basics</a></li><li class="nav-list-item"><a href="/File_ops" class="nav-list-link">Files, User IO and Variables</a></li><li class="nav-list-item"><a href="/Control_Flow" class="nav-list-link">Control Flow</a></li><li class="nav-list-item"><a href="/Pointers_and_Arrays" class="nav-list-link">Pointers & Arrays</a></li><li class="nav-list-item"><a href="/Functions_and_Classes" class="nav-list-link">Functions and Classes</a></li><li class="nav-list-item"><a href="/vectors" class="nav-list-link">Vectors</a></li><li class="nav-list-item active"><a href="/Sets_and_maps" class="nav-list-link active">Sets and Maps</a></li><li class="nav-list-item"><a href="/General_troubleshooting" class="nav-list-link">General Troubleshooting</a></li><li class="nav-list-item"><a href="/git_concepts" class="nav-list-link">Git Concepts</a></li></ul>
+
+      
+    </nav>
+    <footer class="site-footer">
+      This site uses <a href="https://github.com/pmarsceill/just-the-docs">Just the Docs</a>, a documentation theme for Jekyll.
+    </footer>
+  </div>
+  <div class="main" id="top">
+    <div id="main-header" class="main-header">
+      
+        <div class="search">
+          <div class="search-input-wrap">
+            <input type="text" id="search-input" class="search-input" tabindex="0" placeholder="Search C++ Notes" aria-label="Search C++ Notes" autocomplete="off">
+            <label for="search-input" class="search-label"><svg viewBox="0 0 24 24" class="search-icon"><use xlink:href="#svg-search"></use></svg></label>
+          </div>
+          <div id="search-results" class="search-results"></div>
+        </div>
+      
+      
+      
+        <nav aria-label="Auxiliary" class="aux-nav">
+          <ul class="aux-nav-list">
+            
+              <li class="aux-nav-list-item">
+                <a href="//github.com/sushanthj" class="site-button"
+                  
+                >
+                  Sushanth's GitHub
+                </a>
+              </li>
+            
+          </ul>
+        </nav>
+      
+    </div>
+    <div id="main-content-wrap" class="main-content-wrap">
+      
+        
+      
+      <div id="main-content" class="main-content" role="main">
+        
+          <details open="">
+  <summary class="text-delta">
+    Table of contents
+  </summary>
+<ol id="markdown-toc">
+  <li><a href="#intro-to-sets" id="markdown-toc-intro-to-sets">Intro to Sets</a>    <ol>
+      <li><a href="#simple-set-example" id="markdown-toc-simple-set-example">Simple set example</a></li>
+      <li><a href="#advanced-set-examples-set-of-classes" id="markdown-toc-advanced-set-examples-set-of-classes">Advanced Set examples (Set of Classes)</a></li>
+      <li><a href="#mulitset" id="markdown-toc-mulitset">Mulitset</a></li>
+      <li><a href="#unordered-set" id="markdown-toc-unordered-set">Unordered Set</a></li>
+    </ol>
+  </li>
+  <li><a href="#intro-to-maps" id="markdown-toc-intro-to-maps">Intro to Maps</a>    <ol>
+      <li><a href="#ordered-map" id="markdown-toc-ordered-map">Ordered Map</a></li>
+      <li><a href="#multimap" id="markdown-toc-multimap">Multimap</a></li>
+      <li><a href="#unordered-maps" id="markdown-toc-unordered-maps">Unordered Maps</a></li>
+    </ol>
+  </li>
+</ol>
+
+</details>
+      <h1 id="intro-to-sets">
+        
+        
+          <a href="#intro-to-sets" class="anchor-heading" aria-labelledby="intro-to-sets"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Intro to Sets
+        
+        
+      </h1>
+    
+
+<p>In C++ the STL library has sets and unordered sets:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">#include &lt;set&gt;</code> - is by default an ordered set</li>
+  <li><code class="language-plaintext highlighter-rouge">#include &lt;unordered_set&gt;</code></li>
+</ul>
+
+<p>Internally, the elements of a set are organized into buckets and uses <strong>hashing</strong> to insert
+elements into buckets. This makes it have constant time complexity!</p>
+      <h2 id="simple-set-example">
+        
+        
+          <a href="#simple-set-example" class="anchor-heading" aria-labelledby="simple-set-example"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Simple set example
+        
+        
+      </h2>
+    
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;iostream&gt;
+#include &lt;set&gt;
+#include &lt;string&gt;
+#include &lt;functional&gt;
+</span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="c1">// to force keep in descending order</span>
+  <span class="c1">//set&lt;int, std::greater&gt; Set;</span>
+  
+  <span class="c1">// Leaving it in ascending order</span>
+  <span class="n">set</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">Set</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">}</span>
+
+  <span class="k">for</span><span class="p">(</span><span class="k">const</span> <span class="k">auto</span><span class="o">&amp;</span> <span class="n">e</span><span class="o">:</span> <span class="n">Set</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">e</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+  <span class="p">}</span>
+  
+  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Output:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1
+2
+3
+4
+</code></pre></div></div>
+
+<p>Observations from above code:</p>
+<ul>
+  <li>Sets do not allow for duplicate elements even if force fed</li>
+  <li>The default arrangement of elements in an ordered set are ascending</li>
+  <li><strong>Auto Iterators (const auto&amp;)ddd</strong>
+<img src="/images/auto_iterator.png" alt="" /></li>
+</ul>
+      <h2 id="advanced-set-examples-set-of-classes">
+        
+        
+          <a href="#advanced-set-examples-set-of-classes" class="anchor-heading" aria-labelledby="advanced-set-examples-set-of-classes"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Advanced Set examples (Set of Classes)
+        
+        
+      </h2>
+    
+
+<p>Here we perform operator overloading, observe the syntax</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;iostream&gt;
+#include &lt;set&gt;
+#include &lt;functional&gt;
+#include &lt;string&gt;
+</span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">Person</span>
+<span class="p">{</span>
+  <span class="nl">public:</span>
+    <span class="kt">float</span> <span class="n">age</span><span class="p">;</span>
+    <span class="n">string</span> <span class="n">name</span><span class="p">;</span>
+  
+  <span class="kt">bool</span> <span class="k">operator</span> <span class="o">&lt;</span> <span class="p">(</span><span class="k">const</span> <span class="n">Person</span><span class="o">&amp;</span> <span class="n">peep</span><span class="p">)</span> <span class="k">const</span>
+  <span class="p">{</span>
+    <span class="k">return</span> <span class="n">age</span> <span class="o">&lt;</span> <span class="n">peep</span><span class="p">.</span><span class="n">age</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="c1">// defining set of classes</span>
+  <span class="n">set</span><span class="o">&lt;</span><span class="n">Person</span><span class="o">&gt;</span> <span class="n">Set</span> <span class="o">=</span> <span class="p">{</span> <span class="p">{</span><span class="mi">30</span><span class="p">,</span><span class="s">"John"</span><span class="p">},{</span><span class="mi">25</span><span class="p">,</span><span class="s">"Taylor"</span><span class="p">},{</span><span class="mi">22</span><span class="p">,</span><span class="s">"Steve"</span><span class="p">}};</span>
+  <span class="k">for</span><span class="p">(</span><span class="k">const</span> <span class="k">auto</span><span class="o">&amp;</span> <span class="n">e</span><span class="o">:</span> <span class="n">Set</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">e</span><span class="p">.</span><span class="n">age</span> <span class="o">&lt;&lt;</span> <span class="s">" "</span> <span class="o">&lt;&lt;</span> <span class="n">e</span><span class="p">.</span><span class="n">name</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Output:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>22 Steve
+25 Taylor
+30 John
+</code></pre></div></div>
+      <h2 id="mulitset">
+        
+        
+          <a href="#mulitset" class="anchor-heading" aria-labelledby="mulitset"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Mulitset
+        
+        
+      </h2>
+    
+
+<p>Here we will have a sorted set (with ability to handle duplicate objects)</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;iostream&gt;
+#include &lt;set&gt;
+#include &lt;functional&gt;
+#include &lt;string&gt;
+</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">multiset</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">greater</span><span class="o">&lt;&gt;&gt;</span> <span class="n">multiset</span> <span class="o">=</span> <span class="p">{</span><span class="mi">5</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">45</span><span class="p">,</span><span class="mi">1</span><span class="p">}</span>
+  <span class="k">for</span><span class="p">(</span><span class="k">const</span> <span class="k">auto</span><span class="o">&amp;</span> <span class="n">e</span><span class="o">:</span> <span class="n">multiset</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">e</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Note: We can do <code class="language-plaintext highlighter-rouge">std::greater&lt;&gt;</code> or <code class="language-plaintext highlighter-rouge">std::less&lt;&gt;</code> for ascending or descending respectively</p>
+      <h2 id="unordered-set">
+        
+        
+          <a href="#unordered-set" class="anchor-heading" aria-labelledby="unordered-set"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Unordered Set
+        
+        
+      </h2>
+    
+
+<p>Uses hashing while the ordered set using Red-Black-Tree as backend datastructure. The syntax
+for an unordered set is similar though as shown here:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;iostream&gt;
+#include &lt;set&gt;
+#include &lt;functional&gt;
+#include &lt;string&gt;
+</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">unordered_set</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">greater</span><span class="o">&lt;&gt;&gt;</span> <span class="n">uset</span> <span class="o">=</span> <span class="p">{</span><span class="mi">5</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">45</span><span class="p">,</span><span class="mi">1</span><span class="p">}</span>
+  <span class="k">for</span><span class="p">(</span><span class="k">const</span> <span class="k">auto</span><span class="o">&amp;</span> <span class="n">e</span><span class="o">:</span> <span class="n">multiset</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">e</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+      <h1 id="intro-to-maps">
+        
+        
+          <a href="#intro-to-maps" class="anchor-heading" aria-labelledby="intro-to-maps"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Intro to Maps
+        
+        
+      </h1>
+    
+
+<ul>
+  <li>This is the closest to a python dictionary.</li>
+  <li>It works on Key-Value pairs.</li>
+  <li>Each key must be unique</li>
+  <li>Values can be repeated</li>
+</ul>
+      <h2 id="ordered-map">
+        
+        
+          <a href="#ordered-map" class="anchor-heading" aria-labelledby="ordered-map"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Ordered Map
+        
+        
+      </h2>
+    
+
+<p>The key-value pair is sorted according to the <em>key</em></p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;iostream&gt;
+#include &lt;map&gt;
+#include &lt;functional&gt;
+#include &lt;string&gt;
+</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">map</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">,</span> <span class="kt">int</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">greater</span><span class="o">&lt;&gt;&gt;</span> <span class="n">Map</span><span class="p">;</span>
+
+  <span class="c1">// Two methods to initialize</span>
+  <span class="n">Map</span><span class="p">[</span><span class="s">"John"</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1002</span><span class="p">;</span>
+  <span class="n">Map</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">make_pair</span><span class="p">(</span><span class="s">"Bot"</span><span class="p">,</span> <span class="mi">1111</span><span class="p">));</span>
+
+  <span class="c1">// Looping through map</span>
+  <span class="k">for</span><span class="p">(</span><span class="k">const</span> <span class="k">auto</span> <span class="o">&amp;</span><span class="n">e</span><span class="o">:</span> <span class="n">Map</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">e</span><span class="p">.</span><span class="n">first</span> <span class="o">&lt;&lt;</span> <span class="s">" "</span> <span class="o">&lt;&lt;</span> <span class="n">e</span><span class="p">.</span><span class="n">second</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="c1">// print specific values</span>
+  <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">Map</span><span class="p">[</span><span class="s">"John"</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>.first = Key</li>
+  <li>.second = Value</li>
+</ul>
+      <h2 id="multimap">
+        
+        
+          <a href="#multimap" class="anchor-heading" aria-labelledby="multimap"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Multimap
+        
+        
+      </h2>
+    
+
+<p>Here the only difference is that we can have duplicate keys. An interesting way to develop
+a range iterator is shown here:</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;iostream&gt;
+#include &lt;map&gt;
+#include &lt;functional&gt;
+#include &lt;string&gt;
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">multimap</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">Map</span><span class="p">;</span>
+
+  <span class="c1">// WE CANNOT DO THIS ANYMORE BECAUSE OF AMBIGUITY</span>
+  <span class="c1">// Map["John"] = 1002;</span>
+  <span class="c1">// Map["John"] = 1003;</span>
+  <span class="n">Map</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">make_pair</span><span class="p">(</span><span class="s">"Bot"</span><span class="p">,</span> <span class="mi">1111</span><span class="p">));</span>
+
+  <span class="c1">// Get all paris of a given key</span>
+  <span class="k">auto</span> <span class="n">range</span> <span class="o">=</span> <span class="n">Map</span><span class="p">.</span><span class="n">equal_range</span><span class="p">(</span><span class="sc">'a'</span><span class="p">);</span>
+  <span class="k">for</span><span class="p">(</span><span class="k">auto</span> <span class="n">it</span> <span class="o">=</span> <span class="n">range</span><span class="p">.</span><span class="n">first</span><span class="p">;</span> <span class="n">it</span> <span class="o">!=</span> <span class="n">range</span><span class="p">.</span><span class="n">second</span><span class="p">;</span> <span class="o">++</span><span class="n">it</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">first</span> <span class="o">&lt;&lt;</span> <span class="s">" "</span> <span class="o">&lt;&lt;</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">second</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Note. The euqal_range function is bit tricky to understand. The line
+<code class="language-plaintext highlighter-rouge">auto range = Map.equal_range('a');</code> returns two iterators</p>
+
+<p>If we were to do this more explicitly it would look like:</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">pair</span><span class="o">&lt;</span><span class="n">map</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;::</span><span class="n">iterator</span><span class="p">,</span>
+         <span class="n">map</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;::</span><span class="n">iterator</span><span class="o">&gt;</span>
+        <span class="n">it</span><span class="p">;</span>
+
+<span class="c1">// define the iterator</span>
+<span class="n">it</span> <span class="o">=</span> <span class="n">Map</span><span class="p">.</span><span class="n">equal_range</span><span class="p">(</span><span class="s">"Bot"</span><span class="p">)</span>
+
+<span class="c1">// print the bounds of the first and second pairs in iterator</span>
+<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"The lower bound is "</span>
+         <span class="o">&lt;&lt;</span> <span class="n">it</span><span class="p">.</span><span class="n">first</span><span class="o">-&gt;</span><span class="n">first</span>
+         <span class="o">&lt;&lt;</span> <span class="s">":"</span> <span class="o">&lt;&lt;</span> <span class="n">it</span><span class="p">.</span><span class="n">first</span><span class="o">-&gt;</span><span class="n">second</span><span class="p">;</span>
+ 
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"</span><span class="se">\n</span><span class="s">The upper bound is "</span>
+         <span class="o">&lt;&lt;</span> <span class="n">it</span><span class="p">.</span><span class="n">second</span><span class="o">-&gt;</span><span class="n">first</span>
+         <span class="o">&lt;&lt;</span> <span class="s">":"</span> <span class="o">&lt;&lt;</span> <span class="n">it</span><span class="p">.</span><span class="n">second</span><span class="o">-&gt;</span><span class="n">second</span><span class="p">;</span>
+ 
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>As seen above, each iterator has it’s own range</p>
+<ul>
+  <li>First iterator upper-to-lower = lower bound</li>
+  <li>Second iterator upper-to-lower = upper bound</li>
+</ul>
+
+<p>All this drama of defining two iterators and their type is handled by using the <code class="language-plaintext highlighter-rouge">auto</code> 
+type inference <a href="https://www.geeksforgeeks.org/type-inference-in-c-auto-and-decltype/">Reference</a></p>
+      <h2 id="unordered-maps">
+        
+        
+          <a href="#unordered-maps" class="anchor-heading" aria-labelledby="unordered-maps"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Unordered Maps
+        
+        
+      </h2>
+    
+
+<p>Major difference here is that:
+|                   Map                  | Unordered Map                        |
+|:—————————————|:————————————-|
+| Uses Red-Black-Tree backend datastruct | Uses buckets &amp; hashing for backend DS|</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;iostream&gt;
+#include &lt;map&gt;
+#include &lt;functional&gt;
+#include &lt;string&gt;
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">unordered_map</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">umap</span> <span class="o">=</span> <span class="p">{</span> <span class="p">{</span><span class="s">"bob"</span><span class="p">,</span><span class="mi">2</span><span class="p">},</span> <span class="p">{</span><span class="s">"john"</span><span class="p">,</span><span class="mi">3</span><span class="p">}};</span>
+  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+        
+
+        
+
+        
+        
+          <hr>
+          <footer>
+            
+
+            <p class="text-small text-grey-dk-100 mb-0"></p>
+
+            
+              <div class="d-flex mt-2">
+                
+                
+              </div>
+            
+          </footer>
+        
+
+      </div>
+    </div>
+
+    
+      
+
+      <div class="search-overlay"></div>
+    
+  </div>
+</body>
+</html>
+
