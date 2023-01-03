@@ -259,9 +259,11 @@ type inference [Reference](https://www.geeksforgeeks.org/type-inference-in-c-aut
 ## Unordered Maps
 
 Major difference here is that:
+
 |                   Map                  | Unordered Map                        |
 |:---------------------------------------|:-------------------------------------|
 | Uses Red-Black-Tree backend datastruct | Uses buckets & hashing for backend DS|
+
 
 ```cpp
 #include <iostream>

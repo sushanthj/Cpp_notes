@@ -35,7 +35,7 @@
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="Sets and Maps" />
 <script type="application/ld+json">
-{"url":"/Sets_and_maps","@type":"WebPage","headline":"Sets and Maps","description":"Python Notes","@context":"https://schema.org"}</script>
+{"headline":"Sets and Maps","url":"/Sets_and_maps","@type":"WebPage","description":"Python Notes","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -449,10 +449,22 @@ type inference <a href="https://www.geeksforgeeks.org/type-inference-in-c-auto-a
       </h2>
     
 
-<p>Major difference here is that:
-|                   Map                  | Unordered Map                        |
-|:—————————————|:————————————-|
-| Uses Red-Black-Tree backend datastruct | Uses buckets &amp; hashing for backend DS|</p>
+<p>Major difference here is that:</p>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Map</th>
+      <th style="text-align: left">Unordered Map</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">Uses Red-Black-Tree backend datastruct</td>
+      <td style="text-align: left">Uses buckets &amp; hashing for backend DS</td>
+    </tr>
+  </tbody>
+</table></div>
 
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;iostream&gt;
 #include &lt;map&gt;
