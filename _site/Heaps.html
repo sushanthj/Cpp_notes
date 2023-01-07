@@ -1,0 +1,444 @@
+
+
+<!DOCTYPE html>
+
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+
+  
+
+  <link rel="shortcut icon" type="image/png" href="favicon.png">
+
+  <link rel="stylesheet" href="/assets/css/just-the-docs-default.css">
+
+  
+
+  
+    <script type="text/javascript" src="/assets/js/vendor/lunr.min.js"></script>
+  
+  <script type="text/javascript" src="/assets/js/just-the-docs.js"></script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Heaps | C++ Notes</title>
+<meta name="generator" content="Jekyll v4.2.0" />
+<meta property="og:title" content="Heaps" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Python Notes" />
+<meta property="og:description" content="Python Notes" />
+<link rel="canonical" href="/Heaps" />
+<meta property="og:url" content="/Heaps" />
+<meta property="og:site_name" content="C++ Notes" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Heaps" />
+<script type="application/ld+json">
+{"url":"/Heaps","@type":"WebPage","headline":"Heaps","description":"Python Notes","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+  
+
+</head>
+
+<body>
+  <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+    <symbol id="svg-link" viewBox="0 0 24 24">
+      <title>Link</title>
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link">
+        <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+      </svg>
+    </symbol>
+    <symbol id="svg-search" viewBox="0 0 24 24">
+      <title>Search</title>
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
+        <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+      </svg>
+    </symbol>
+    <symbol id="svg-menu" viewBox="0 0 24 24">
+      <title>Menu</title>
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu">
+        <line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>
+      </svg>
+    </symbol>
+    <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+      <title>Expand</title>
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+        <polyline points="9 18 15 12 9 6"></polyline>
+      </svg>
+    </symbol>
+    <symbol id="svg-doc" viewBox="0 0 24 24">
+      <title>Document</title>
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file">
+        <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline>
+      </svg>
+    </symbol>
+  </svg>
+
+  <div class="side-bar">
+    <div class="site-header">
+      <a href="/" class="site-title lh-tight">
+  C++ Notes
+
+</a>
+      <a href="#" id="menu-button" class="site-button">
+        <svg viewBox="0 0 24 24" class="icon"><use xlink:href="#svg-menu"></use></svg>
+      </a>
+    </div>
+    <nav role="navigation" aria-label="Main" id="site-nav" class="site-nav">
+      
+        <ul class="nav-list"><li class="nav-list-item"><a href="/" class="nav-list-link">Home</a></li><li class="nav-list-item"><a href="/intro/" class="nav-list-link">Intro</a></li><li class="nav-list-item"><a href="/Basics" class="nav-list-link">Basics</a></li><li class="nav-list-item"><a href="/File_ops" class="nav-list-link">Files, User IO and Variables</a></li><li class="nav-list-item"><a href="/Control_Flow" class="nav-list-link">Control Flow</a></li><li class="nav-list-item"><a href="/Pointers_and_Arrays" class="nav-list-link">Pointers & Arrays</a></li><li class="nav-list-item"><a href="/Functions_and_Classes" class="nav-list-link">Functions and Classes</a></li><li class="nav-list-item"><a href="/vectors" class="nav-list-link">Vectors</a></li><li class="nav-list-item"><a href="/Sets_and_maps" class="nav-list-link">Sets and Maps</a></li><li class="nav-list-item active"><a href="/Heaps" class="nav-list-link active">Heaps</a></li><li class="nav-list-item"><a href="/Stacks" class="nav-list-link">Stacks</a></li><li class="nav-list-item"><a href="/General_troubleshooting" class="nav-list-link">General Troubleshooting</a></li><li class="nav-list-item"><a href="/git_concepts" class="nav-list-link">Git Concepts</a></li></ul>
+
+      
+    </nav>
+    <footer class="site-footer">
+      This site uses <a href="https://github.com/pmarsceill/just-the-docs">Just the Docs</a>, a documentation theme for Jekyll.
+    </footer>
+  </div>
+  <div class="main" id="top">
+    <div id="main-header" class="main-header">
+      
+        <div class="search">
+          <div class="search-input-wrap">
+            <input type="text" id="search-input" class="search-input" tabindex="0" placeholder="Search C++ Notes" aria-label="Search C++ Notes" autocomplete="off">
+            <label for="search-input" class="search-label"><svg viewBox="0 0 24 24" class="search-icon"><use xlink:href="#svg-search"></use></svg></label>
+          </div>
+          <div id="search-results" class="search-results"></div>
+        </div>
+      
+      
+      
+        <nav aria-label="Auxiliary" class="aux-nav">
+          <ul class="aux-nav-list">
+            
+              <li class="aux-nav-list-item">
+                <a href="//github.com/sushanthj" class="site-button"
+                  
+                >
+                  Sushanth's GitHub
+                </a>
+              </li>
+            
+          </ul>
+        </nav>
+      
+    </div>
+    <div id="main-content-wrap" class="main-content-wrap">
+      
+        
+      
+      <div id="main-content" class="main-content" role="main">
+        
+          <details open="">
+  <summary class="text-delta">
+    Table of contents
+  </summary>
+<ol id="markdown-toc">
+  <li><a href="#non-optimized-approach-to-search-vectors" id="markdown-toc-non-optimized-approach-to-search-vectors">Non-optimized approach to search (vectors)</a></li>
+  <li><a href="#optimal-approach-heaps" id="markdown-toc-optimal-approach-heaps">Optimal approach (Heaps)</a>    <ol>
+      <li><a href="#summary" id="markdown-toc-summary">Summary</a>        <ol>
+          <li><a href="#lessons-learnt" id="markdown-toc-lessons-learnt">Lessons Learnt</a></li>
+        </ol>
+      </li>
+    </ol>
+  </li>
+  <li><a href="#working-with-heaps-in-c" id="markdown-toc-working-with-heaps-in-c">Working with Heaps in C++</a>    <ol>
+      <li><a href="#example-with-heaps-in-c" id="markdown-toc-example-with-heaps-in-c">Example with heaps in C++</a></li>
+      <li><a href="#another-example-of-heaps-max-heap-derived-from-vectors-here" id="markdown-toc-another-example-of-heaps-max-heap-derived-from-vectors-here">Another example of Heaps (Max Heap derived from Vectors here)</a>        <ol>
+          <li><a href="#my-c-solution" id="markdown-toc-my-c-solution">My C++ Solution</a></li>
+        </ol>
+      </li>
+    </ol>
+  </li>
+</ol>
+
+</details>
+
+<p><strong>This is a starter to learn about min heaps and priority queues</strong>. To learn more
+<a href="https://www.youtube.com/watch?v=hOjcdrqMoQ8&amp;ab_channel=NeetCode">Ref Video</a></p>
+      <h1 id="non-optimized-approach-to-search-vectors">
+        
+        
+          <a href="#non-optimized-approach-to-search-vectors" class="anchor-heading" aria-labelledby="non-optimized-approach-to-search-vectors"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Non-optimized approach to search (vectors)
+        
+        
+      </h1>
+    
+
+<ul>
+  <li>Sort the input array so that we can search for any number in log(n) time (Binary Search)</li>
+  <li>However, adding any new element into the sorted array with O(n) time</li>
+  <li>Therefore it doesn’t seem too optimal. Could there be something better?</li>
+</ul>
+      <h1 id="optimal-approach-heaps">
+        
+        
+          <a href="#optimal-approach-heaps" class="anchor-heading" aria-labelledby="optimal-approach-heaps"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Optimal approach (Heaps)
+        
+        
+      </h1>
+    
+
+<p>Here we’ll specifically use a Min heap. These have <strong>kinda sorted properties</strong>.</p>
+
+<p><strong>The advantage of heaps over vectors/arrays is</strong></p>
+<ul>
+  <li>We can add and pop elements in log(n) time vs the O(n) time with vectors</li>
+  <li><strong>We can get min value of min_heap in O(1)</strong> which is definitely better than an unsorted array</li>
+  <li>Also, we only need a min heap because we need only the kth largest values in heap
+and we don’t care about other elements. Also we’ll never be removing elements, just
+adding them again and again.</li>
+  <li><strong>Therefore all we need is a min-heap of size K</strong></li>
+  <li>We’ll essentially keeping popping the min element of the heap until heap is of size K</li>
+</ul>
+      <h2 id="summary">
+        
+        
+          <a href="#summary" class="anchor-heading" aria-labelledby="summary"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Summary
+        
+        
+      </h2>
+    
+<ul>
+  <li>Heap is just like a vector (in that it’s unsorted), but it can give min value in log(n) time</li>
+  <li>Usually stacks are preferred over heaps since they are faster and have easier memory access</li>
+  <li>Heaps are implemeneted from full binary trees</li>
+</ul>
+      <h3 id="lessons-learnt">
+        
+        
+          <a href="#lessons-learnt" class="anchor-heading" aria-labelledby="lessons-learnt"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Lessons Learnt
+        
+        
+      </h3>
+    
+
+<ol>
+  <li>How is a heap better than a vector</li>
+  <li>How to use a heap in C++ <a href="https://www.geeksforgeeks.org/heap-using-stl-c/">Ref</a></li>
+</ol>
+      <h1 id="working-with-heaps-in-c">
+        
+        
+          <a href="#working-with-heaps-in-c" class="anchor-heading" aria-labelledby="working-with-heaps-in-c"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Working with Heaps in C++
+        
+        
+      </h1>
+    
+
+<ol>
+  <li>Creation of heap from a list type container (officially called range container):
+    <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Initializing a vector</span>
+<span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">v1</span> <span class="o">=</span> <span class="p">{</span><span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">15</span><span class="p">};</span>
+       
+<span class="c1">// Converting vector into a heap</span>
+<span class="c1">// using make_heap()</span>
+<span class="n">make_heap</span><span class="p">(</span><span class="n">v1</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">v1</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Getting max element of a max heap <br />
+The max element of a heap = Front of heap i.e. <code class="language-plaintext highlighter-rouge">v1.front()</code></p>
+  </li>
+  <li>
+    <p>To define a min heap is a bit tricky in C++. We need to use priority queue (part of <code class="language-plaintext highlighter-rouge">&lt;queue&gt;</code> library) which uses min_heap in background</p>
+  </li>
+  <li><strong>Efficiently Init a priority_queue from a vector (but works only for max heap :/)</strong>
+    <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+     <span class="kt">int</span> <span class="n">arr</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">54</span><span class="p">,</span> <span class="mi">45</span><span class="p">,</span> <span class="mi">26</span><span class="p">,</span> <span class="mi">12</span> <span class="p">};</span>
+     <span class="kt">int</span> <span class="n">N</span> <span class="o">=</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span> <span class="o">/</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">arr</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+
+     <span class="c1">// Initialize priority_queue</span>
+     <span class="n">priority_queue</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">pq</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">arr</span> <span class="o">+</span> <span class="n">N</span><span class="p">);</span>
+
+     <span class="c1">// print individual elements</span>
+     <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="n">pq</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span> 
+     <span class="p">{</span>
+         <span class="c1">// Print the element</span>
+         <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">pq</span><span class="p">.</span><span class="n">top</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">" "</span><span class="p">;</span>
+         <span class="n">pq</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+     <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>doing priority_queue.size() takes only O(1) time complexity</p>
+  </li>
+  <li>Since we can only add to heap (can’t add to front or back), just like a queue
+therefore we can only do <code class="language-plaintext highlighter-rouge">pq.push(5)</code> and it will automatically know where to add it</li>
+</ol>
+      <h2 id="example-with-heaps-in-c">
+        
+        
+          <a href="#example-with-heaps-in-c" class="anchor-heading" aria-labelledby="example-with-heaps-in-c"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Example with heaps in C++
+        
+        
+      </h2>
+    
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;queue&gt;
+</span><span class="k">class</span> <span class="nc">KthLargest</span> <span class="p">{</span>
+<span class="nl">private:</span>
+    <span class="kt">int</span> <span class="n">k</span><span class="p">;</span>
+<span class="nl">public:</span>
+    <span class="n">priority_queue</span> <span class="o">&lt;</span> <span class="kt">int</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">greater</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">min_heap</span><span class="p">;</span>
+    
+    <span class="n">KthLargest</span><span class="p">(</span><span class="kt">int</span> <span class="n">k</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">nums</span><span class="p">)</span> 
+    <span class="p">{</span>
+        <span class="k">this</span><span class="o">-&gt;</span><span class="n">k</span> <span class="o">=</span> <span class="n">k</span><span class="p">;</span>
+        <span class="c1">// add all elements in vector to heap</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">nums</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="n">min_heap</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+
+        <span class="c1">// now start popping the min elements of the heap</span>
+        <span class="c1">// i.e. start by popping the top of heap = min element</span>
+        <span class="c1">// we pop from the min side since we want kth largest</span>
+        <span class="k">while</span><span class="p">(</span><span class="n">min_heap</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">&gt;</span> <span class="n">k</span><span class="p">)</span> <span class="n">min_heap</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+    <span class="p">}</span>
+    
+    <span class="kt">int</span> <span class="n">add</span><span class="p">(</span><span class="kt">int</span> <span class="n">val</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// add new val to heap whatever the case</span>
+        <span class="n">min_heap</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">val</span><span class="p">);</span>
+        
+        <span class="c1">// after adding new val we need to resize the heap</span>
+        <span class="c1">// so that we still have kth largest elements only</span>
+        <span class="c1">// therefore, to make space we again pop the min element</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">min_heap</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">&gt;</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">k</span><span class="p">)</span> <span class="n">min_heap</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+
+        <span class="k">return</span> <span class="n">min_heap</span><span class="p">.</span><span class="n">top</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="cm">/**
+ * Your KthLargest object will be instantiated and called as such:
+ * KthLargest* obj = new KthLargest(k, nums);
+ * int param_1 = obj-&gt;add(val);
+ */</span>
+</code></pre></div></div>
+
+<p><strong>Note. Using this variable makes life easy here (think of this-&gt;k as self.k in python)</strong></p>
+<ul>
+  <li>We’ve added a private variable <code class="language-plaintext highlighter-rouge">int k</code> (which is usually not there in leetcode).</li>
+  <li>The reason is that we need the k value to be accessed by a member function <code class="language-plaintext highlighter-rouge">int add</code></li>
+  <li>Therefore, it needs to be declared as a local class variable (like self in python)</li>
+  <li>To make it a local variable, we need to put it under the private declaration.</li>
+</ul>
+      <h2 id="another-example-of-heaps-max-heap-derived-from-vectors-here">
+        
+        
+          <a href="#another-example-of-heaps-max-heap-derived-from-vectors-here" class="anchor-heading" aria-labelledby="another-example-of-heaps-max-heap-derived-from-vectors-here"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Another example of Heaps (Max Heap derived from Vectors here)
+        
+        
+      </h2>
+    
+
+<p>This is a starter to learn about max_heaps (without using priority queues)</p>
+
+<p><img src="/images/last_stone.png" alt="" /></p>
+      <h3 id="my-c-solution">
+        
+        
+          <a href="#my-c-solution" class="anchor-heading" aria-labelledby="my-c-solution"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> My C++ Solution
+        
+        
+      </h3>
+    
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;queue&gt;
+</span><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="nl">public:</span>
+    <span class="kt">int</span> <span class="n">lastStoneWeight</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">stones</span><span class="p">)</span> <span class="p">{</span>
+        
+        <span class="c1">// init placeholder for max and 2nd max value of heap</span>
+        <span class="kt">int</span> <span class="n">max1</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="kt">int</span> <span class="n">max2</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        
+        <span class="c1">// init a heap from the given vector</span>
+        <span class="n">make_heap</span><span class="p">(</span><span class="n">stones</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">stones</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+
+        <span class="c1">// alternative way of making heap is to use priority queue</span>
+
+        <span class="c1">// priority_queue &lt;int, vector&lt;int&gt;&gt; max_heap;</span>
+        <span class="c1">// for(int i=0; i &lt; stones.size(), i++) max_heap.push(stones[i])</span>
+
+        <span class="c1">// iterate until we have one stone left</span>
+        <span class="k">while</span><span class="p">(</span><span class="n">stones</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="c1">// extract first largest ('y' in problem statement)</span>
+            <span class="n">max1</span> <span class="o">=</span> <span class="n">stones</span><span class="p">.</span><span class="n">front</span><span class="p">();</span>
+            <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">max1</span><span class="p">;</span>
+
+            <span class="c1">// remove from heap first</span>
+            <span class="n">pop_heap</span><span class="p">(</span><span class="n">stones</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">stones</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+            <span class="c1">// remove from vector</span>
+            <span class="n">stones</span><span class="p">.</span><span class="n">pop_back</span><span class="p">();</span>
+
+            <span class="c1">// extract second largest ('x' in problem statement)</span>
+            <span class="n">max2</span> <span class="o">=</span> <span class="n">stones</span><span class="p">.</span><span class="n">front</span><span class="p">();</span>
+            <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">max2</span><span class="p">;</span>
+
+            <span class="c1">// remove from heap first</span>
+            <span class="n">pop_heap</span><span class="p">(</span><span class="n">stones</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">stones</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+            <span class="c1">// remove from vector</span>
+            <span class="n">stones</span><span class="p">.</span><span class="n">pop_back</span><span class="p">();</span>
+
+            <span class="c1">// if equal don't do anything as both elements have been popped</span>
+            <span class="k">if</span> <span class="p">((</span><span class="n">max1</span> <span class="o">==</span> <span class="n">max2</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="n">stones</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="k">continue</span><span class="p">;</span>
+
+            <span class="k">else</span> <span class="k">if</span> <span class="p">((</span><span class="n">max1</span> <span class="o">==</span> <span class="n">max2</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="n">stones</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="n">stones</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+            <span class="p">}</span>
+
+            <span class="c1">// if not equal then reduce y and add it back</span>
+            <span class="k">else</span>
+            <span class="p">{</span>
+                <span class="n">max1</span> <span class="o">=</span> <span class="n">max1</span><span class="o">-</span><span class="n">max2</span><span class="p">;</span>
+                
+                <span class="c1">// add to vector first</span>
+                <span class="n">stones</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">max1</span><span class="p">);</span>
+                <span class="c1">// reorder heap after new addition</span>
+                <span class="n">push_heap</span><span class="p">(</span><span class="n">stones</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">stones</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">stones</span><span class="p">.</span><span class="n">front</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+        
+
+        
+
+        
+        
+          <hr>
+          <footer>
+            
+
+            <p class="text-small text-grey-dk-100 mb-0"></p>
+
+            
+              <div class="d-flex mt-2">
+                
+                
+              </div>
+            
+          </footer>
+        
+
+      </div>
+    </div>
+
+    
+      
+
+      <div class="search-overlay"></div>
+    
+  </div>
+</body>
+</html>
+
